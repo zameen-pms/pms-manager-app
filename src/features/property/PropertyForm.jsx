@@ -1,4 +1,5 @@
 import Button from "../ui/button/Button";
+import Dropdown from "../ui/dropdown/Dropdown";
 import Input from "../ui/input/Input";
 import { StyledPropertyForm } from "./PorpertyForm.styled";
 
@@ -16,15 +17,17 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 					disabled={!canEdit}
 					required
 				/>
-				<Input
+				<Dropdown
 					id="property-form-type"
 					label="Property Type"
+					placeholder="Property Type"
+					disabled={!canEdit}
+					options={["Single-Family", "Multi-Family"]}
 					value={property?.type || ""}
+					setValue={(type) => setProperty({ ...property, type })}
 					onChange={(e) =>
-						setProperty({ ...property, name: e.target.value })
+						setProperty({ ...property, type: e.target.value })
 					}
-					disabled
-					required
 				/>
 				<Input
 					id="property-form-street"

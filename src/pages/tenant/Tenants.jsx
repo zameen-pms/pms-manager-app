@@ -49,9 +49,14 @@ const Tenants = () => {
 						width: 200,
 					},
 					{
+						field: "status",
+						headerName: "Status",
+						width: 200,
+					},
+					{
 						field: "createdAt",
 						headerName: "Created At",
-						width: 200,
+						width: 300,
 					},
 				]}
 				tableOptions={{

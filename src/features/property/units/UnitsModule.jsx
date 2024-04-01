@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../ui/button/Button";
 import { StyledUnitsModule } from "./UnitsModule.styled";
 import Unit from "./unit/Unit";
-import Table from "../../ui/table/Table";
 import PageTitle from "../../ui/pageTitle/PageTitle";
 
 const UnitsModule = ({ property }) => {
@@ -26,20 +25,6 @@ const UnitsModule = ({ property }) => {
 					Add Unit
 				</Button>
 			</div>
-			<Table
-				rows={property?.units || []}
-				columns={[
-					{
-						field: "number",
-						headerName: "Unit Number",
-						width: 200,
-					},
-				]}
-				tableOptions={{
-					onRowClick: handleRowClick,
-					getRowId: (row) => row["_id"],
-				}}
-			/>
 		</StyledUnitsModule>
 	);
 };

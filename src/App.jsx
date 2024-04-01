@@ -16,13 +16,7 @@ const App = () => {
 
 			{/* private routes */}
 			<Route element={<PersistLogin />}>
-				<Route
-					element={
-						<RequireAuth
-							allowedRoles={["Admin", "Owner", "Manager"]}
-						/>
-					}
-				>
+				<Route element={<RequireAuth allowedRoles={["Manager"]} />}>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Navigate to="tenants" />} />
 						<Route path="tenants/*" element={<TenantsHome />} />
