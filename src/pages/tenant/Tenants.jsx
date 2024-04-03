@@ -5,6 +5,7 @@ import { getUser } from "../../features/app/authSlice";
 import Table from "../../features/ui/table/Table";
 import { useNavigate } from "react-router-dom";
 import PageTitle from "../../features/ui/pageTitle/PageTitle";
+import Button from "../../features/ui/button/Button";
 
 const Tenants = () => {
 	const user = useSelector(getUser);
@@ -28,8 +29,13 @@ const Tenants = () => {
 	const handleRowClick = ({ row }) => navigate(`${row._id}`);
 
 	return (
-		<>
-			<PageTitle showBack>Tenants</PageTitle>
+		<section className="column gap-3">
+			<div className="row align-center justify-sb">
+				<PageTitle showBack>Tenants</PageTitle>
+				<Button onClick={() => navigate(`/tenants/add`)}>
+					Add Tenant
+				</Button>
+			</div>
 			<Table
 				rows={users}
 				columns={[
@@ -64,7 +70,7 @@ const Tenants = () => {
 					getRowId: (row) => row["_id"],
 				}}
 			/>
-		</>
+		</section>
 	);
 };
 

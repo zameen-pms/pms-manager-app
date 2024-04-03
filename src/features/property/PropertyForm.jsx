@@ -22,6 +22,7 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 					label="Property Type"
 					placeholder="Property Type"
 					disabled={!canEdit}
+					required
 					options={["Single-Family", "Multi-Family"]}
 					value={property?.type || ""}
 					setValue={(type) => setProperty({ ...property, type })}

@@ -5,6 +5,7 @@ import { StyledDropdown } from "./Dropdown.styled";
 const Dropdown = ({
 	id,
 	label,
+	required,
 	placeholder,
 	disabled,
 	options,
@@ -20,7 +21,7 @@ const Dropdown = ({
 
 	return (
 		<StyledDropdown>
-			<label htmlFor={id || ""}>{label || ""}</label>
+			<label htmlFor={id || ""}>{`${label}${required ? "*" : ""}`}</label>
 			<div>
 				<input
 					id={id}
