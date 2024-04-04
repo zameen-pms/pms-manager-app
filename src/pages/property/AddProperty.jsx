@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import createProperty from "../../features/api/properties/createProperty";
 import addUnit from "../../features/api/units/addUnit";
 import updatePropertyById from "../../features/api/properties/updatePropertyById";
+import createLease from "../../features/api/leases/createLease";
+import updateUnitById from "../../features/api/units/updateUnitById";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
@@ -38,6 +40,12 @@ const AddProperty = () => {
 			);
 			const { data: unitData } = await addUnit(user.accessToken, {
 				property: propertyData._id,
+			});
+			const { data: leaseData } = await createLease(user.accessToken, {
+				unit: unitData._id,
+			});
+			await updateUnitById(user.accessToken, unitData._id, {
+				lease: leaseData._id,
 			});
 			await updatePropertyById(user.accessToken, propertyData._id, {
 				units: [unitData._id],

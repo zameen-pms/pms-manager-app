@@ -81,11 +81,7 @@ const Property = () => {
 				canEdit={canEdit}
 				handleSave={handleSave}
 			/>
-			<UnitsModule
-				property={property}
-				canEdit={canEdit}
-				handleSave={handleSave}
-			/>
+			{/* <UnitsModule property={property} canEdit={canEdit} /> */}
 		</section>
 	);
 };
