@@ -9,7 +9,7 @@ import Button from "../../features/ui/button/Button";
 
 const Tenants = () => {
 	const user = useSelector(getUser);
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState(null);
 	const navigate = useNavigate();
 
 	const getTenants = async () => {

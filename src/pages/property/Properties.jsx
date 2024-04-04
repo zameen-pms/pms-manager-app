@@ -9,7 +9,7 @@ import Button from "../../features/ui/button/Button";
 
 const Properties = () => {
 	const user = useSelector(getUser);
-	const [properties, setProperties] = useState([]);
+	const [properties, setProperties] = useState(null);
 	const navigate = useNavigate();
 
 	const formatLocation = (location) => {

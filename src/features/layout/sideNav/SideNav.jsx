@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StyledSideNav } from "./SideNav.styled";
-import { MdHome, MdLogout, MdPeople } from "react-icons/md";
+import { MdArticle, MdHome, MdLogout, MdPeople } from "react-icons/md";
 import useLogout from "../../auth/useLogout";
 
 const SideNav = () => {
@@ -28,6 +28,10 @@ const SideNav = () => {
 				<NavLink to="/properties">
 					<MdHome />
 					<p>Properties</p>
+				</NavLink>
+				<NavLink to="/leases">
+					<MdArticle />
+					<p>Leases</p>
 				</NavLink>
 			</div>
 			<div className="bottom">

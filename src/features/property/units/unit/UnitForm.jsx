@@ -1,21 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../../../ui/button/Button";
 import Dropdown from "../../../ui/dropdown/Dropdown";
-import Input from "../../../ui/input/Input";
 import { StyledPropertyForm } from "../../PorpertyForm.styled";
 
 const UnitForm = ({ unit, setUnit, canEdit, handleSave }) => {
+	const navigate = useNavigate();
+
 	return (
 		<StyledPropertyForm onSubmit={handleSave}>
 			<div className="grid">
-				<Input
-					id="details-lease"
-					label="Lease"
-					value={unit?.lease || ""}
-					onChange={(e) =>
-						setUnit({ ...unit, lease: e.target.value })
-					}
-					disabled
-				/>
+				<Button
+					onClick={() => navigate(`/leases/${unit?.lease || ""}`)}
+				>
+					View Lease Details
+				</Button>
 				<Dropdown
 					id="details-status"
 					label="Availability"

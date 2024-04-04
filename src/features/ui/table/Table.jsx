@@ -10,15 +10,19 @@ const initialState = {
 const Table = ({ rows, columns, tableOptions }) => {
 	return (
 		<StyledTable>
-			<DataGrid
-				className="custom-data-grid"
-				autoHeight
-				rows={rows}
-				columns={columns}
-				initialState={initialState}
-				pageSizeOptions={[10, 25, 50]}
-				{...tableOptions}
-			/>
+			{rows ? (
+				<DataGrid
+					className="custom-data-grid"
+					autoHeight
+					rows={rows}
+					columns={columns}
+					initialState={initialState}
+					pageSizeOptions={[10, 25, 50]}
+					{...tableOptions}
+				/>
+			) : (
+				<h4>Loading...</h4>
+			)}
 		</StyledTable>
 	);
 };
