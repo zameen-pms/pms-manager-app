@@ -1,31 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../ui/button/Button";
-import { StyledUnitsModule } from "./UnitsModule.styled";
-import Unit from "./unit/Unit";
+import { useEffect, useState } from "react";
 import PageTitle from "../../ui/pageTitle/PageTitle";
+import UnitForm from "./unit/UnitForm";
 
-const UnitsModule = ({ property }) => {
-	const navigate = useNavigate();
+const UnitsModule = ({ property, canEdit }) => {
+	const [unit, setUnit] = useState({});
 
-	const handleRowClick = ({ row }) => navigate(`units/${row._id}`);
+	useEffect(() => {
+		if (
+			property?.type === "Single-Family" &&
+			property?.units?.length === 1
+		) {
+			setUnit(property.units[0]);
+		}
+	}, [property]);
 
-	return property?.type === "Single-Family" &&
-		property?.units?.length === 1 ? (
-		<>
-			<PageTitle showBack>Unit Details</PageTitle>
-			<Unit unitId={property.units[0]} />
-		</>
+	const handleSave = async (e) => {
+		e?.preventDefault();
+		try {
+			// save unit
+		} catch (err) {
+			alert("Unable to save property details.");
+			console.log(err);
+		}
+	};
+
+	return property?.type === "Single-Family" ? (
+		property?.units?.length === 0 ? (
+			<h3>Error: Missing Unit</h3>
+		) : (
+			<>
+				<PageTitle showBack>Details</PageTitle>
+				<UnitForm
+					unit={unit}
+					setUnit={setUnit}
+					canEdit={canEdit}
+					handleSave={handleSave}
+				/>
+			</>
+		)
 	) : (
-		<StyledUnitsModule>
-			<div className="row justify-sb align-center">
-				<h3>Units</h3>
-				<Button
-					onClick={() => navigate(`/properties/${property._id}/add`)}
-				>
-					Add Unit
-				</Button>
-			</div>
-		</StyledUnitsModule>
+		<>{/* TODO: Implement when we have multi-family */}</>
 	);
 };
 

@@ -5,6 +5,8 @@ import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import createProperty from "../../features/api/properties/createProperty";
+import addUnit from "../../features/api/units/addUnit";
+import updatePropertyById from "../../features/api/properties/updatePropertyById";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
@@ -30,7 +32,16 @@ const AddProperty = () => {
 	const handleSave = async (e) => {
 		e?.preventDefault();
 		try {
-			await createProperty(user.accessToken, property);
+			const { data: propertyData } = await createProperty(
+				user.accessToken,
+				property
+			);
+			const { data: unitData } = await addUnit(user.accessToken, {
+				property: propertyData._id,
+			});
+			await updatePropertyById(user.accessToken, propertyData._id, {
+				units: [unitData._id],
+			});
 			alert("Property has been created.");
 			navigate("/properties");
 		} catch (err) {

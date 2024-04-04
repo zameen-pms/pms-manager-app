@@ -52,7 +52,7 @@ const Tenants = () => {
 					{
 						field: "email",
 						headerName: "Email",
-						width: 200,
+						width: 250,
 					},
 					{
 						field: "status",
