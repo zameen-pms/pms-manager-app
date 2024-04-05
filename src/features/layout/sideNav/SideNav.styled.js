@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const StyledSideNav = styled.nav`
+	position: fixed;
+	left: 0;
+	top: 0;
 	background-color: var(--dark-gray);
 	width: 300px;
 	height: 100%;

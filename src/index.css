@@ -74,6 +74,10 @@ a:hover {
 	align-items: center;
 }
 
+.align-end {
+	align-items: flex-end;
+}
+
 .gap-05 {
 	gap: 0.5rem;
 }

@@ -43,6 +43,7 @@ const Dropdown = ({
 							<p
 								onClick={() => handleResultClick(result)}
 								key={index}
+								style={{ width: "100%" }}
 							>
 								{result}
 							</p>

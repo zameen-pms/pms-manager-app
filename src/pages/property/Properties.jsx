@@ -46,18 +46,13 @@ const Properties = () => {
 				rows={properties}
 				columns={[
 					{
-						field: "name",
-						headerName: "Name",
-						width: 200,
+						field: "address",
+						headerName: "Address",
+						width: 500,
 					},
 					{
-						field: "location",
-						headerName: "Street",
-						width: 400,
-					},
-					{
-						field: "type",
-						headerName: "Property Type",
+						field: "availability",
+						headerName: "Availability",
 						width: 200,
 					},
 				]}

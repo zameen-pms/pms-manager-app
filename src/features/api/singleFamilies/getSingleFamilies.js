@@ -1,9 +1,9 @@
 import { axiosAuth } from "../axios";
 
-const getSingleFamilies = async (accessToken, query) => {
+const getSingleFamilies = async (accessToken, query = "") => {
 	try {
 		const response = await axiosAuth(accessToken).get(
-			`/singleFamilies?${query}`
+			`/singleFamilies${query}`
 		);
 		return response;
 	} catch (err) {

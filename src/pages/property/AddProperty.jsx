@@ -17,7 +17,28 @@ const AddProperty = () => {
 			state: "",
 			zip: "",
 		},
-		metaData: {},
+		metaData: {
+			purchasePrice: {
+				label: "Purchase Price",
+				value: "",
+			},
+			squareFootage: {
+				label: "Square Footage",
+				value: "",
+			},
+			bedrooms: {
+				label: "Bedrooms",
+				value: "",
+			},
+			bathrooms: {
+				label: "Bathrooms",
+				value: "",
+			},
+			yearBuilt: {
+				label: "Year Built",
+				value: "",
+			},
+		},
 		manager: "",
 	});
 
@@ -30,11 +51,19 @@ const AddProperty = () => {
 	const handleSave = async (e) => {
 		e?.preventDefault();
 		try {
+			const metaData = {};
+			Object.keys(property.metaData).map(
+				(key) => (metaData[key] = property.metaData[key].value)
+			);
 			const { data: leaseData } = await createLease(user.accessToken);
-			await createSingleFamily(user.accessToken, {
-				...property,
+			const propertyRequest = {
+				address: property.address,
+				manager: property.manager,
 				lease: leaseData._id,
-			});
+				metaData,
+			};
+			console.log(propertyRequest);
+			await createSingleFamily(user.accessToken, propertyRequest);
 			alert("Property has been created.");
 			navigate("/properties");
 		} catch (err) {
