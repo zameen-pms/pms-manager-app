@@ -1,9 +1,10 @@
 import { axiosAuth } from "../axios";
 
-const propertyAddUnit = async (accessToken, propertyId, unitId) => {
+const createSingleFamily = async (accessToken, body) => {
 	try {
 		const response = await axiosAuth(accessToken).post(
-			`/properties/${propertyId}/units/${unitId}`
+			`/singleFamilies`,
+			body
 		);
 		return response;
 	} catch (err) {
@@ -11,4 +12,4 @@ const propertyAddUnit = async (accessToken, propertyId, unitId) => {
 	}
 };
 
-export default propertyAddUnit;
+export default createSingleFamily;

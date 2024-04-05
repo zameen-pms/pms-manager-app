@@ -1,9 +1,9 @@
 import { axiosAuth } from "../axios";
 
-const getProperties = async (accessToken, query = "") => {
+const getSingleFamilyById = async (accessToken, id) => {
 	try {
 		const response = await axiosAuth(accessToken).get(
-			`/properties?${query}`
+			`/singleFamilies/${id}`
 		);
 		return response;
 	} catch (err) {
@@ -11,4 +11,4 @@ const getProperties = async (accessToken, query = "") => {
 	}
 };
 
-export default getProperties;
+export default getSingleFamilyById;

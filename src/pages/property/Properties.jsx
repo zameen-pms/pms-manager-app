@@ -2,30 +2,26 @@ import { useSelector } from "react-redux";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import getProperties from "../../features/api/properties/getProperties";
 import PageTitle from "../../features/ui/pageTitle/PageTitle";
 import Table from "../../features/ui/table/Table";
 import Button from "../../features/ui/button/Button";
+import getSingleFamilies from "../../features/api/singleFamilies/getSingleFamilies";
 
 const Properties = () => {
 	const user = useSelector(getUser);
 	const [properties, setProperties] = useState(null);
 	const navigate = useNavigate();
 
-	const formatLocation = (location) => {
-		return `${location?.street} ${location?.city}, ${location?.state} ${location?.zip}`;
+	const formatAddress = (address) => {
+		return `${address?.street} ${address?.city}, ${address?.state} ${address?.zip}`;
 	};
 
 	const fetchProperties = async () => {
 		try {
-			const query =
-				user.role === "owner" || user.role === "manager"
-					? `${user.role}=${user._id}`
-					: "";
-			const { data } = await getProperties(user.accessToken, query);
+			const { data } = await getSingleFamilies(user.accessToken);
 			const formattedData = data.map((property) => ({
 				...property,
-				location: formatLocation(property?.location),
+				address: formatAddress(property?.address),
 			}));
 			setProperties(formattedData);
 		} catch (err) {

@@ -1,9 +1,9 @@
 import { axiosAuth } from "../axios";
 
-const updatePropertyById = async (accessToken, id, body) => {
+const updateSingleFamilyById = async (accessToken, id, body) => {
 	try {
 		const response = await axiosAuth(accessToken).put(
-			`/properties/${id}`,
+			`/singleFamilies/${id}`,
 			body
 		);
 		return response;
@@ -12,4 +12,4 @@ const updatePropertyById = async (accessToken, id, body) => {
 	}
 };
 
-export default updatePropertyById;
+export default updateSingleFamilyById;

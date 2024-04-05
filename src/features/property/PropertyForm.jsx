@@ -7,16 +7,6 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 	return (
 		<StyledPropertyForm onSubmit={handleSave}>
 			<div className="grid">
-				<Input
-					id="property-form-name"
-					label="Property Name"
-					value={property?.name || ""}
-					onChange={(e) =>
-						setProperty({ ...property, name: e.target.value })
-					}
-					disabled={!canEdit}
-					required
-				/>
 				<Dropdown
 					id="property-form-type"
 					label="Property Type"
@@ -30,6 +20,7 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 						setProperty({ ...property, type: e.target.value })
 					}
 				/>
+				<span></span>
 				<Input
 					id="property-form-street"
 					label="Street"

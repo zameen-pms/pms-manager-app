@@ -4,24 +4,20 @@ import PageTitle from "../../features/ui/pageTitle/PageTitle";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import createProperty from "../../features/api/properties/createProperty";
-import addUnit from "../../features/api/units/addUnit";
-import updatePropertyById from "../../features/api/properties/updatePropertyById";
 import createLease from "../../features/api/leases/createLease";
-import updateUnitById from "../../features/api/units/updateUnitById";
+import createSingleFamily from "../../features/api/singleFamilies/createSingleFamily";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
 	const navigate = useNavigate();
 	const [property, setProperty] = useState({
-		name: "",
-		location: {
+		address: {
 			street: "",
 			city: "",
 			state: "",
 			zip: "",
 		},
-		type: "Single-Family",
+		metaData: {},
 		manager: "",
 	});
 
@@ -29,26 +25,15 @@ const AddProperty = () => {
 		if (user?._id) {
 			setProperty({ ...property, manager: user._id });
 		}
-	}, []);
+	}, [user]);
 
 	const handleSave = async (e) => {
 		e?.preventDefault();
 		try {
-			const { data: propertyData } = await createProperty(
-				user.accessToken,
-				property
-			);
-			const { data: unitData } = await addUnit(user.accessToken, {
-				property: propertyData._id,
-			});
-			const { data: leaseData } = await createLease(user.accessToken, {
-				unit: unitData._id,
-			});
-			await updateUnitById(user.accessToken, unitData._id, {
+			const { data: leaseData } = await createLease(user.accessToken);
+			await createSingleFamily(user.accessToken, {
+				...property,
 				lease: leaseData._id,
-			});
-			await updatePropertyById(user.accessToken, propertyData._id, {
-				units: [unitData._id],
 			});
 			alert("Property has been created.");
 			navigate("/properties");
