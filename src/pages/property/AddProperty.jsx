@@ -17,29 +17,14 @@ const AddProperty = () => {
 			state: "",
 			zip: "",
 		},
-		metaData: {
-			purchasePrice: {
-				label: "Purchase Price",
-				value: "",
-			},
-			squareFootage: {
-				label: "Square Footage",
-				value: "",
-			},
-			bedrooms: {
-				label: "Bedrooms",
-				value: "",
-			},
-			bathrooms: {
-				label: "Bathrooms",
-				value: "",
-			},
-			yearBuilt: {
-				label: "Year Built",
-				value: "",
-			},
-		},
 		manager: "",
+		metaData: {
+			purchasePrice: "",
+			squareFootage: "",
+			bedrooms: "",
+			bathrooms: "",
+			yearBuilt: "",
+		},
 	});
 
 	useEffect(() => {

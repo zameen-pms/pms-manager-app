@@ -5,12 +5,12 @@ import PopupModal from "../ui/popupModal/PopupModal";
 import toCamelCase from "../utils/toCamelCase";
 
 const MetaDataPopup = ({ property, setProperty, showPopup, setShowPopup }) => {
-	const [metaDataField, setMetaDataField] = useState({ label: "" });
+	const [metaDataField, setMetaDataField] = useState("");
 
 	const createMetaData = (e) => {
 		e?.preventDefault();
 		try {
-			const metaDataKey = toCamelCase(metaDataField.label);
+			const metaDataKey = toCamelCase(metaDataField);
 			if (property.metaData.hasOwnProperty(metaDataKey)) {
 				return alert("Error: Field already exists.");
 			}
@@ -18,13 +18,10 @@ const MetaDataPopup = ({ property, setProperty, showPopup, setShowPopup }) => {
 				...property,
 				metaData: {
 					...property.metaData,
-					[metaDataKey]: {
-						label: metaDataField.label,
-						value: "",
-					},
+					[metaDataKey]: "",
 				},
 			});
-			setMetaDataField({ label: "" });
+			setMetaDataField("");
 			setShowPopup(false);
 		} catch (err) {
 			alert("Unable to create meta data field.");
@@ -38,13 +35,8 @@ const MetaDataPopup = ({ property, setProperty, showPopup, setShowPopup }) => {
 				<Input
 					id="modal-label"
 					label="Field Name"
-					value={metaDataField?.label || ""}
-					onChange={(e) =>
-						setMetaDataField({
-							...metaDataField,
-							label: e.target.value,
-						})
-					}
+					value={metaDataField || ""}
+					onChange={(e) => setMetaDataField(e.target.value)}
 					required
 				/>
 				<Button type="submit">Add Meta Data</Button>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Button from "../ui/button/Button";
-import Dropdown from "../ui/dropdown/Dropdown";
 import Input from "../ui/input/Input";
 import { StyledPropertyForm } from "./PorpertyForm.styled";
 import MetaDataPopup from "./MetaDataPopup";
 import { MdDelete } from "react-icons/md";
+import camelToSentence from "../utils/camelToSentence";
 
 const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 	const [showPopup, setShowPopup] = useState(false);
@@ -13,20 +13,6 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 		<>
 			<StyledPropertyForm onSubmit={handleSave}>
 				<div className="grid">
-					<Dropdown
-						id="property-form-type"
-						label="Property Type"
-						placeholder="Property Type"
-						disabled={!canEdit}
-						required
-						options={["Single-Family", "Multi-Family"]}
-						value={property?.type || ""}
-						setValue={(type) => setProperty({ ...property, type })}
-						onChange={(e) =>
-							setProperty({ ...property, type: e.target.value })
-						}
-					/>
-					<span></span>
 					<Input
 						id="property-form-street"
 						label="Street"
@@ -106,18 +92,15 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 						>
 							<Input
 								id={`property-form-${key}`}
-								label={property.metaData[key]?.label || ""}
-								value={property.metaData[key]?.value || ""}
+								label={camelToSentence(key)}
+								value={property.metaData[key] || ""}
 								disabled={!canEdit}
 								onChange={(e) =>
 									setProperty({
 										...property,
 										metaData: {
 											...property.metaData,
-											[key]: {
-												...property.metaData[key],
-												value: e.target.value,
-											},
+											[key]: e.target.value,
 										},
 									})
 								}
