@@ -14,7 +14,7 @@ const SignInModal = () => {
 		e.preventDefault();
 		try {
 			await handleLogin(email, password);
-			navigate("/tenants");
+			navigate("/properties");
 		} catch (err) {
 			console.log(err.message);
 		}

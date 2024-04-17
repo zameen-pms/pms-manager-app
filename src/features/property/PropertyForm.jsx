@@ -9,6 +9,18 @@ import camelToSentence from "../utils/camelToSentence";
 const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 	const [showPopup, setShowPopup] = useState(false);
 
+	const handleDeleteMetaField = (key) => {
+		const confirmation = confirm("Are you sure you want to delete?");
+		if (confirmation) {
+			setProperty({
+				...property,
+				metaData: Object.fromEntries(
+					Object.entries(property.metaData).filter(([k]) => k !== key)
+				),
+			});
+		}
+	};
+
 	return (
 		<>
 			<StyledPropertyForm onSubmit={handleSave}>
@@ -105,21 +117,14 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 									})
 								}
 							/>
-							<div
-								className="delete-icon"
-								onClick={() =>
-									setProperty({
-										...property,
-										metaData: Object.fromEntries(
-											Object.entries(
-												property.metaData
-											).filter(([k]) => k !== key)
-										),
-									})
-								}
-							>
-								<MdDelete />
-							</div>
+							{canEdit && (
+								<div
+									className="delete-icon"
+									onClick={() => handleDeleteMetaField(key)}
+								>
+									<MdDelete />
+								</div>
+							)}
 						</div>
 					))}
 				</div>

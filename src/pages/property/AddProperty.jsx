@@ -36,20 +36,17 @@ const AddProperty = () => {
 	const handleSave = async (e) => {
 		e?.preventDefault();
 		try {
-			const metaData = {};
-			Object.keys(property.metaData).map(
-				(key) => (metaData[key] = property.metaData[key].value)
-			);
 			const { data: leaseData } = await createLease(user.accessToken);
+
 			const propertyRequest = {
 				address: property.address,
 				manager: property.manager,
 				lease: leaseData._id,
-				metaData,
+				metaData: property.metaData,
 			};
-			console.log(propertyRequest);
 			await createSingleFamily(user.accessToken, propertyRequest);
 			alert("Property has been created.");
+
 			navigate("/properties");
 		} catch (err) {
 			alert("Unable to create new property.");

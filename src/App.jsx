@@ -6,7 +6,6 @@ import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
 import TenantsHome from "./pages/tenant";
 import PropertyHome from "./pages/property";
-import LeaseHome from "./pages/lease";
 
 const App = () => {
 	return (
@@ -22,7 +21,6 @@ const App = () => {
 						<Route index element={<Navigate to="tenants" />} />
 						<Route path="tenants/*" element={<TenantsHome />} />
 						<Route path="properties/*" element={<PropertyHome />} />
-						<Route path="leases/*" element={<LeaseHome />} />
 					</Route>
 				</Route>
 			</Route>

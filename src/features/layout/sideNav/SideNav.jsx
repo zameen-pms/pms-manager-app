@@ -21,17 +21,13 @@ const SideNav = () => {
 		<StyledSideNav>
 			<h3>Zameen</h3>
 			<div className="nav-items">
-				<NavLink to="/tenants">
-					<MdPeople />
-					<p>Tenants</p>
-				</NavLink>
 				<NavLink to="/properties">
 					<MdHome />
 					<p>Properties</p>
 				</NavLink>
-				<NavLink to="/leases">
-					<MdArticle />
-					<p>Leases</p>
+				<NavLink to="/tenants">
+					<MdPeople />
+					<p>Tenants</p>
 				</NavLink>
 			</div>
 			<div className="bottom">
