@@ -1,26 +1,8 @@
-import { useState } from "react";
 import Button from "../ui/button/Button";
 import Input from "../ui/input/Input";
 import { StyledPropertyForm } from "./PorpertyForm.styled";
-import MetaDataPopup from "./MetaDataPopup";
-import { MdDelete } from "react-icons/md";
-import camelToSentence from "../utils/camelToSentence";
 
 const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
-	const [showPopup, setShowPopup] = useState(false);
-
-	const handleDeleteMetaField = (key) => {
-		const confirmation = confirm("Are you sure you want to delete?");
-		if (confirmation) {
-			setProperty({
-				...property,
-				metaData: Object.fromEntries(
-					Object.entries(property.metaData).filter(([k]) => k !== key)
-				),
-			});
-		}
-	};
-
 	return (
 		<>
 			<StyledPropertyForm onSubmit={handleSave}>
@@ -90,54 +72,8 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 						required
 					/>
 				</div>
-				<div className="row align-center justify-sb">
-					<h3>Meta Data</h3>
-					<Button type="button" onClick={() => setShowPopup(true)}>
-						Add Meta Data
-					</Button>
-				</div>
-				<div className="column gap-1">
-					{Object.keys(property?.metaData).map((key, index) => (
-						<div
-							key={index}
-							className="row align-end justify-sb gap-1"
-						>
-							<Input
-								id={`property-form-${key}`}
-								label={camelToSentence(key)}
-								value={property.metaData[key] || ""}
-								disabled={!canEdit}
-								onChange={(e) =>
-									setProperty({
-										...property,
-										metaData: {
-											...property.metaData,
-											[key]: e.target.value,
-										},
-									})
-								}
-							/>
-							{canEdit && (
-								<div
-									className="delete-icon"
-									onClick={() => handleDeleteMetaField(key)}
-								>
-									<MdDelete />
-								</div>
-							)}
-						</div>
-					))}
-				</div>
 				{canEdit && <Button type="submit">Save</Button>}
 			</StyledPropertyForm>
-			{showPopup && (
-				<MetaDataPopup
-					property={property}
-					setProperty={setProperty}
-					showPopup={showPopup}
-					setShowPopup={setShowPopup}
-				/>
-			)}
 		</>
 	);
 };

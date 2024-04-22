@@ -4,8 +4,7 @@ import PageTitle from "../../features/ui/pageTitle/PageTitle";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import createLease from "../../features/api/leases/createLease";
-import createSingleFamily from "../../features/api/singleFamilies/createSingleFamily";
+import createProperty from "../../features/api/properties/createProperty";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
@@ -16,14 +15,6 @@ const AddProperty = () => {
 			city: "",
 			state: "",
 			zip: "",
-		},
-		manager: "",
-		metaData: {
-			purchasePrice: "",
-			squareFootage: "",
-			bedrooms: "",
-			bathrooms: "",
-			yearBuilt: "",
 		},
 	});
 
@@ -36,17 +27,8 @@ const AddProperty = () => {
 	const handleSave = async (e) => {
 		e?.preventDefault();
 		try {
-			const { data: leaseData } = await createLease(user.accessToken);
-
-			const propertyRequest = {
-				address: property.address,
-				manager: property.manager,
-				lease: leaseData._id,
-				metaData: property.metaData,
-			};
-			await createSingleFamily(user.accessToken, propertyRequest);
+			await createProperty(user.accessToken, property);
 			alert("Property has been created.");
-
 			navigate("/properties");
 		} catch (err) {
 			alert("Unable to create new property.");
