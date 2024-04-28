@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { StyledPropertyCard } from "./Properties.styled";
-import { useSelector } from "react-redux";
-import { getUser } from "../app/authSlice";
-import getPropertyDataById from "../api/propertyData/getPropertyDataById";
+import { useNavigate } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
-	const user = useSelector(getUser);
-	const [propertyData, setPropertyData] = useState(null);
+	const navigate = useNavigate();
 	const [availableColor, setAvailableColor] = useState("#2f3542");
+
+	const handleClick = () => {
+		navigate(`/properties/${property?._id}`);
+	};
 
 	useEffect(() => {
 		if (property?.availability) {
@@ -28,25 +29,11 @@ const PropertyCard = ({ property }) => {
 		}
 	}, [property]);
 
-	const fetchPropertyData = async () => {
-		try {
-			const { data } = await getPropertyDataById(
-				user.accessToken,
-				property.propertyData
-			);
-			setPropertyData(data);
-		} catch (err) {
-			console.log("Unable to fetch property.");
-			console.log(err);
-		}
-	};
-
-	useEffect(() => {
-		property?.propertyData && fetchPropertyData();
-	}, []);
-
 	return (
-		<StyledPropertyCard $availableColor={availableColor}>
+		<StyledPropertyCard
+			$availableColor={availableColor}
+			onClick={handleClick}
+		>
 			<div className="card-header">
 				<img
 					src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -58,7 +45,6 @@ const PropertyCard = ({ property }) => {
 			</div>
 			<div className="card-body">
 				<h4>{`${property?.address?.street} ${property?.address?.city}, ${property?.address?.state} ${property?.address?.zip}`}</h4>
-				<p className="property-type">Single-Family</p>
 				<div className="property-row">
 					<div className="left row gap-05">
 						<p className="property-beds">3 Bed</p>

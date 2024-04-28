@@ -40,6 +40,10 @@ h3 {
 	font-size: 2rem;
 }
 
+h4 {
+	font-size: 1.6rem;
+}
+
 a {
 	color: #0984e3;
 	text-decoration: none;
@@ -92,4 +96,14 @@ a:hover {
 
 .gap-3 {
 	gap: 3rem;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.container > * {
+	flex: 1;
 }

@@ -39,7 +39,7 @@ export const StyledPropertyCard = styled.div`
 			position: absolute;
 			top: 1rem;
 			right: 1rem;
-			font-size: 10px;
+			font-size: 12px;
 			text-transform: uppercase;
 			font-weight: 600;
 			letter-spacing: 0.1px;
@@ -60,10 +60,6 @@ export const StyledPropertyCard = styled.div`
 		h4 {
 			font-weight: 500;
 			font-size: 20px;
-		}
-
-		.property-type {
-			color: gray;
 		}
 
 		.property-row {
