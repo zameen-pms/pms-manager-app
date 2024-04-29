@@ -12,6 +12,8 @@ export const StyledControlBar = styled.section`
 		align-items: center;
 		gap: 0.5rem;
 		cursor: pointer;
+		width: min-content;
+		white-space: nowrap;
 
 		svg {
 			color: gray;
