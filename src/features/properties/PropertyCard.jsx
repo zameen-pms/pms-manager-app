@@ -45,15 +45,6 @@ const PropertyCard = ({ property }) => {
 			</div>
 			<div className="card-body">
 				<h4>{`${property?.address?.street} ${property?.address?.city}, ${property?.address?.state} ${property?.address?.zip}`}</h4>
-				<div className="property-row">
-					<div className="left row gap-05">
-						<p className="property-beds">3 Bed</p>
-						<p className="property-baths">2 Bath</p>
-					</div>
-					<div className="right">
-						<p className="property-size">1,234 sqft.</p>
-					</div>
-				</div>
 			</div>
 		</StyledPropertyCard>
 	);
