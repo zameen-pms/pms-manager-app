@@ -12,7 +12,7 @@ const Home = () => {
 			navigate("/auth/sign-in");
 			return;
 		}
-		navigate("/tenants");
+		navigate("/properties");
 	}, []);
 };
 

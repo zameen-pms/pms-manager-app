@@ -4,8 +4,9 @@ import Auth from "./pages/auth";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
-import TenantsHome from "./pages/tenant";
-import PropertyHome from "./pages/property";
+import PropertiesHome from "./pages/properties";
+import MessagingHome from "./pages/messaging";
+import MaintenanceHome from "./pages/maintenance";
 
 const App = () => {
 	return (
@@ -18,9 +19,16 @@ const App = () => {
 			<Route element={<PersistLogin />}>
 				<Route element={<RequireAuth allowedRoles={["Manager"]} />}>
 					<Route path="/" element={<Layout />}>
-						<Route index element={<Navigate to="tenants" />} />
-						<Route path="tenants/*" element={<TenantsHome />} />
-						<Route path="properties/*" element={<PropertyHome />} />
+						<Route index element={<Navigate to="properties" />} />
+						<Route
+							path="properties/*"
+							element={<PropertiesHome />}
+						/>
+						<Route
+							path="maintenance"
+							element={<MaintenanceHome />}
+						/>
+						<Route path="messages/*" element={<MessagingHome />} />
 					</Route>
 				</Route>
 			</Route>

@@ -1,6 +1,11 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StyledSideNav } from "./SideNav.styled";
-import { MdHome, MdLogout } from "react-icons/md";
+import {
+	MdHome,
+	MdLogout,
+	MdOutlineCarpenter,
+	MdOutlineMessage,
+} from "react-icons/md";
 import useLogout from "../../auth/useLogout";
 
 const SideNav = () => {
@@ -19,17 +24,27 @@ const SideNav = () => {
 
 	return (
 		<StyledSideNav>
-			<h3>Zameen</h3>
-			<div className="nav-items">
-				<NavLink to="/properties">
+			<div className="side-nav-header">
+				<h2>Zameen Management</h2>
+			</div>
+			<div className="side-nav-body">
+				<NavLink className="nav-item" to="properties">
 					<MdHome />
-					<p>Properties</p>
+					Properties
+				</NavLink>
+				<NavLink className="nav-item" to="maintenance">
+					<MdOutlineCarpenter />
+					Maintenance Requests
+				</NavLink>
+				<NavLink className="nav-item" to="messages">
+					<MdOutlineMessage />
+					Messages
 				</NavLink>
 			</div>
-			<div className="bottom">
-				<Link onClick={handleLogout}>
+			<div className="side-nav-footer">
+				<Link onClick={handleLogout} className="nav-item">
 					<MdLogout />
-					<p>Logout</p>
+					Sign Out
 				</Link>
 			</div>
 		</StyledSideNav>

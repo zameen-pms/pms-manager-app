@@ -7,7 +7,7 @@
 	--primary-blue: #3661eb;
 	--secondary-blue: #162848;
 	--light-gray: #83879b;
-	--dark-gray: #1e1e1e;
+	--dark-gray: #171818;
 }
 
 * {
@@ -106,4 +106,8 @@ a:hover {
 
 .container > * {
 	flex: 1;
+}
+
+.padding-1 {
+	padding: 1rem;
 }

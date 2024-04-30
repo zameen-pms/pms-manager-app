@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import PropertyForm from "../../features/property/PropertyForm";
-import PageTitle from "../../features/ui/pageTitle/PageTitle";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import createProperty from "../../features/api/properties/createProperty";
+import ControlBar from "../../features/ui/controlBar/ControlBar";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
@@ -37,8 +37,10 @@ const AddProperty = () => {
 	};
 
 	return (
-		<section className="column gap-3">
-			<PageTitle showBack>Create New Property</PageTitle>
+		<section className="column gap-3 padding-1">
+			<ControlBar text="Back to Properties">
+				<h4>Add New Property</h4>
+			</ControlBar>
 			<PropertyForm
 				property={property}
 				setProperty={setProperty}

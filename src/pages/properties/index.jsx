@@ -1,17 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Properties from "./Properties";
-import Property from "./Property";
 import AddProperty from "./AddProperty";
+import PropertyHome from "./property";
 
-const PropertyHome = () => {
+const PropertiesHome = () => {
 	return (
 		<Routes>
 			<Route index element={<Properties />} />
 			<Route path="add" element={<AddProperty />} />
-			<Route path=":propertyId" element={<Property />} />
+			<Route path=":propertyId/*" element={<PropertyHome />} />
 			<Route path="*" element={<Navigate to="" />} />
 		</Routes>
 	);
 };
 
-export default PropertyHome;
+export default PropertiesHome;

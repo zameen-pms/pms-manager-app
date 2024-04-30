@@ -8,7 +8,6 @@ export const StyledLayout = styled.main`
 
 export const StyledBody = styled.section`
 	flex: 1;
-	padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;

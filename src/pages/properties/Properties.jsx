@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PageTitle from "../../features/ui/pageTitle/PageTitle";
 import Button from "../../features/ui/button/Button";
 import PropertyCards from "../../features/properties/PropertyCards";
 import getProperties from "../../features/api/properties/getProperties";
+import ControlBar from "../../features/ui/controlBar/ControlBar";
 
 const Properties = () => {
 	const user = useSelector(getUser);
@@ -27,9 +27,11 @@ const Properties = () => {
 	}, []);
 
 	return (
-		<section className="column gap-3">
+		<section className="column gap-3 padding-1">
 			<div className="row justify-sb align-center">
-				<PageTitle showBack>Properties</PageTitle>
+				<ControlBar>
+					<h4>Properties</h4>
+				</ControlBar>
 				<Button onClick={() => navigate("add")}>Add Property</Button>
 			</div>
 			{properties ? (

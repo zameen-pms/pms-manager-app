@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import getPropertyById from "../../features/api/properties/getPropertyById";
+import getPropertyById from "../../../features/api/properties/getPropertyById";
 import { useSelector } from "react-redux";
-import { getUser } from "../../features/app/authSlice";
-import Button from "../../features/ui/button/Button";
-import ControlBar from "../../features/ui/controlBar/ControlBar";
-import Tab from "../../features/ui/tab/Tab";
-import Input from "../../features/ui/input/Input";
-import updatePropertyDataById from "../../features/api/propertyData/updatePropertyDataById";
+import { getUser } from "../../../features/app/authSlice";
+import Button from "../../../features/ui/button/Button";
+import ControlBar from "../../../features/ui/controlBar/ControlBar";
+import Tab from "../../../features/ui/tab/Tab";
+import Input from "../../../features/ui/input/Input";
+import updatePropertyDataById from "../../../features/api/propertyData/updatePropertyDataById";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -180,7 +180,7 @@ const Property = () => {
 								label="Number of Beds"
 								value={
 									propertyData?.generalInformation
-										?.numberBeds || ""
+										?.numberBeds || "0"
 								}
 								onChange={(e) =>
 									setPropertyData({
@@ -198,7 +198,7 @@ const Property = () => {
 								label="Number of Full Baths"
 								value={
 									propertyData?.generalInformation
-										?.numberBaths?.full || ""
+										?.numberBaths?.full || "0"
 								}
 								onChange={(e) =>
 									setPropertyData({
@@ -221,7 +221,7 @@ const Property = () => {
 								label="Number of Half Baths"
 								value={
 									propertyData?.generalInformation
-										?.numberBaths?.half || ""
+										?.numberBaths?.half || "0"
 								}
 								onChange={(e) =>
 									setPropertyData({
