@@ -25,7 +25,7 @@ const App = () => {
 							element={<PropertiesHome />}
 						/>
 						<Route
-							path="maintenance"
+							path="maintenance/*"
 							element={<MaintenanceHome />}
 						/>
 						<Route path="messages/*" element={<MessagingHome />} />

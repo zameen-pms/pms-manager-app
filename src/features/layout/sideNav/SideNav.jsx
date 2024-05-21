@@ -34,7 +34,7 @@ const SideNav = () => {
 				</NavLink>
 				<NavLink className="nav-item" to="maintenance">
 					<MdOutlineCarpenter />
-					Maintenance Requests
+					Work Orders
 				</NavLink>
 				<NavLink className="nav-item" to="messages">
 					<MdOutlineMessage />
