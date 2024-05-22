@@ -111,3 +111,7 @@ a:hover {
 .padding-1 {
 	padding: 1rem;
 }
+
+.data-grid-row {
+	cursor: pointer;
+}
