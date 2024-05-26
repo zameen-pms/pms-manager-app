@@ -8,6 +8,9 @@ import Tab from "../../features/ui/tab/Tab";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import Button from "../../features/ui/button/Button";
+import ControlBar from "../../features/ui/controlBar/ControlBar";
+import Modal from "../../features/ui/modal/Modal";
+import AddWorkOrderModal from "./AddWorkOrderModal";
 
 const columns = [
 	{
@@ -44,6 +47,7 @@ const WorkOrders = () => {
 	const [properties, setProperties] = useState([]);
 	const [selectedProperty, setSelectedProperty] = useState({ value: "All" });
 	const [workOrders, setWorkOrders] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		const fetchProperties = async () => {
@@ -86,10 +90,13 @@ const WorkOrders = () => {
 		};
 
 		fetchWorkOrders();
-	}, [tab, selectedProperty]);
+	}, [tab, selectedProperty, showModal]);
 
 	return (
 		<section className="column gap-1">
+			<ControlBar>
+				<h4>Work Orders</h4>
+			</ControlBar>
 			<div className="column">
 				<div className="row gap-1 align-end">
 					<Dropdown
@@ -101,7 +108,7 @@ const WorkOrders = () => {
 							setSelectedProperty(option);
 						}}
 					/>
-					<Button onClick={() => navigate("add")}>
+					<Button onClick={() => setShowModal(true)}>
 						Add Work Order
 					</Button>
 				</div>
@@ -131,6 +138,14 @@ const WorkOrders = () => {
 					},
 				}}
 			/>
+			{showModal && (
+				<Modal title="Add Work Order" setShowModal={setShowModal}>
+					<AddWorkOrderModal
+						properties={properties}
+						setShowModal={setShowModal}
+					/>
+				</Modal>
+			)}
 		</section>
 	);
 };

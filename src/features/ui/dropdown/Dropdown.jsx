@@ -1,26 +1,13 @@
 import { v4 } from "uuid";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { StyledDropdown } from "./Dropdown.styled";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 const Dropdown = (props) => {
 	const id = props?.id || v4();
-	const inputRef = useRef(null);
 	const [showOptions, setShowOptions] = useState(false);
-
-	const handleOutsideClick = (e) => {
-		if (inputRef.current && !inputRef.current.contains(e.target)) {
-			setShowOptions(false);
-		}
-	};
-
-	useEffect(() => {
-		document.addEventListener("mousedown", handleOutsideClick);
-
-		return () => {
-			document.removeEventListener("mousedown", handleOutsideClick);
-		};
-	});
+	const inputRef = useOutsideClick(setShowOptions);
 
 	const toggleOptions = () => setShowOptions(!showOptions);
 
