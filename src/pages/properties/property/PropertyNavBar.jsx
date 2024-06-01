@@ -5,8 +5,6 @@ const PropertyNavBar = () => {
 	return (
 		<StyledPropertyNavBar>
 			<NavLink to="info">Info</NavLink>
-			<NavLink to="rental-history">Rental History</NavLink>
-			<NavLink to="lease-history">Lease History</NavLink>
 		</StyledPropertyNavBar>
 	);
 };

@@ -5,8 +5,6 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
 import PropertiesHome from "./pages/properties";
-import MessagingHome from "./pages/messaging";
-import MaintenanceHome from "./pages/maintenance";
 
 const App = () => {
 	return (
@@ -24,11 +22,6 @@ const App = () => {
 							path="properties/*"
 							element={<PropertiesHome />}
 						/>
-						<Route
-							path="maintenance/*"
-							element={<MaintenanceHome />}
-						/>
-						<Route path="messages/*" element={<MessagingHome />} />
 					</Route>
 				</Route>
 			</Route>
