@@ -9,11 +9,17 @@ const Dropdown = (props) => {
 	const [showOptions, setShowOptions] = useState(false);
 	const inputRef = useOutsideClick(setShowOptions);
 
-	const toggleOptions = () => setShowOptions(!showOptions);
+	const toggleOptions = () => {
+		if (!props?.disabled) {
+			setShowOptions(!showOptions);
+		}
+	};
 
 	const handleClick = (option) => {
-		setShowOptions(false);
-		props?.onChange && props.onChange(option);
+		if (!props?.disabled) {
+			setShowOptions(false);
+			props?.onChange && props.onChange(option);
+		}
 	};
 
 	return (
@@ -26,6 +32,8 @@ const Dropdown = (props) => {
 				onClick={toggleOptions}
 				value={props?.value}
 				onChange={() => {}}
+				disabled={props?.disabled}
+				required={props?.required || false}
 			/>
 			{showOptions ? <MdArrowDropUp /> : <MdArrowDropDown />}
 			{showOptions && (

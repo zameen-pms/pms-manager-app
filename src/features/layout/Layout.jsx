@@ -1,13 +1,17 @@
 import { Outlet } from "react-router-dom";
-import { StyledBody, StyledLayout } from "./Layout.styled";
+import { StyledBody, StyledContent, StyledLayout } from "./Layout.styled";
 import SideNav from "./sideNav/SideNav";
+import ControlBar from "./controlBar/ControlBar";
 
 const Layout = () => {
 	return (
 		<StyledLayout>
 			<SideNav />
 			<StyledBody>
-				<Outlet />
+				<ControlBar />
+				<StyledContent>
+					<Outlet />
+				</StyledContent>
 			</StyledBody>
 		</StyledLayout>
 	);

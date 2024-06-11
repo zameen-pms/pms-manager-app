@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropertyForm from "../../features/property/PropertyForm";
 import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import createProperty from "../../features/api/properties/createProperty";
-import ControlBar from "../../features/ui/controlBar/ControlBar";
+import { MdArrowBack } from "react-icons/md";
+import { setContent } from "../../features/app/globalSlice";
 
 const AddProperty = () => {
 	const user = useSelector(getUser);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [property, setProperty] = useState({
 		address: {
@@ -36,18 +38,27 @@ const AddProperty = () => {
 		}
 	};
 
+	useEffect(() => {
+		dispatch(
+			setContent(
+				<div className="row align-center gap-05">
+					<MdArrowBack
+						onClick={() => navigate(-1)}
+						className="back-arrow"
+					/>
+					<h3>Add New Property</h3>
+				</div>
+			)
+		);
+	}, []);
+
 	return (
-		<section className="column gap-3 padding-1">
-			<ControlBar text="Back to Properties">
-				<h4>Add New Property</h4>
-			</ControlBar>
-			<PropertyForm
-				property={property}
-				setProperty={setProperty}
-				canEdit={true}
-				handleSave={handleSave}
-			/>
-		</section>
+		<PropertyForm
+			property={property}
+			setProperty={setProperty}
+			canEdit={true}
+			handleSave={handleSave}
+		/>
 	);
 };
 

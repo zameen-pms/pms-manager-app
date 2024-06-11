@@ -3,21 +3,22 @@ import styled from "styled-components";
 export const StyledPropertyLayout = styled.section`
 	display: flex;
 	flex-direction: column;
+	gap: 1rem;
 	width: 100%;
 	height: 100%;
-	background: #f8f8f8;
 
 	.property-body {
 		width: 100%;
 		height: 100%;
 		overflow-y: scroll;
-		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 `;
 
 export const StyledPropertyNavBar = styled.nav`
 	background: white;
-	padding: 1rem 1rem;
 	display: flex;
 	gap: 1.5rem;
 

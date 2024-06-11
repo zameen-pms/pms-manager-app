@@ -115,3 +115,9 @@ a:hover {
 .data-grid-row {
 	cursor: pointer;
 }
+
+.back-arrow {
+	cursor: pointer;
+	width: 2rem;
+	height: 2rem;
+}

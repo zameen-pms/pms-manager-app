@@ -1,19 +1,22 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getPropertyById from "../../../features/api/properties/getPropertyById";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../../features/app/authSlice";
 import Button from "../../../features/ui/button/Button";
-import ControlBar from "../../../features/ui/controlBar/ControlBar";
 import Tab from "../../../features/ui/tab/Tab";
 import Input from "../../../features/ui/input/Input";
 import updatePropertyDataById from "../../../features/api/propertyData/updatePropertyDataById";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { setContent } from "../../../features/app/globalSlice";
+import { MdArrowBack } from "react-icons/md";
 
 const Property = () => {
 	const { propertyId } = useParams();
 	const user = useSelector(getUser);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [property, setProperty] = useState(null);
 	const [propertyData, setPropertyData] = useState(null);
 	const [canEdit, setCanEdit] = useState(false);
@@ -1193,11 +1196,20 @@ const Property = () => {
 		}
 	};
 
-	return (
-		<section className="column gap-1">
-			<div className="row justify-sb align-center">
-				<ControlBar text="Back to Properties">
-					<h4>{property?.address?.street || "Property Data"}</h4>
+	useEffect(() => {
+		dispatch(
+			setContent(
+				<div className="row justify-sb align-center">
+					<div className="row align-center gap-05">
+						<MdArrowBack
+							className="back-arrow"
+							onClick={() => navigate("/properties")}
+						/>
+						<h3>
+							{property?.address?.street || "Property Data"} -
+							Info
+						</h3>
+					</div>
 					<div className="row align-center gap-05">
 						<Button onClick={handleEditClick}>
 							{canEdit ? "Cancel" : "Edit"}
@@ -1206,8 +1218,13 @@ const Property = () => {
 							<Button onClick={handleSubmit}>Save</Button>
 						)}
 					</div>
-				</ControlBar>
-			</div>
+				</div>
+			)
+		);
+	}, [property, canEdit]);
+
+	return (
+		<>
 			<Tab
 				options={[
 					"General Info",
@@ -1223,7 +1240,7 @@ const Property = () => {
 			<form className="column gap-1">
 				{propertyData ? render : <h4>Loading Property Data...</h4>}
 			</form>
-		</section>
+		</>
 	);
 };
 

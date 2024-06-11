@@ -1,24 +1,29 @@
-import { useSelector } from "react-redux";
-import { getUser } from "../../features/app/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../features/ui/button/Button";
-import PropertyCards from "../../features/properties/PropertyCards";
+import { setContent } from "../../features/app/globalSlice";
+import PropertiesTable from "../../features/properties/PropertiesTable";
+import { getUser } from "../../features/app/authSlice";
 import getProperties from "../../features/api/properties/getProperties";
-import ControlBar from "../../features/ui/controlBar/ControlBar";
 
 const Properties = () => {
-	const user = useSelector(getUser);
-	const [properties, setProperties] = useState(null);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { accessToken } = useSelector(getUser);
+	const [properties, setProperties] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const fetchProperties = async () => {
 		try {
-			const { data } = await getProperties(user.accessToken);
+			setLoading(true);
+			const { data } = await getProperties(accessToken, {});
 			setProperties(data);
 		} catch (err) {
 			alert("Unable to fetch properties.");
 			console.log(err.message);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -26,21 +31,20 @@ const Properties = () => {
 		fetchProperties();
 	}, []);
 
-	return (
-		<section className="column gap-3 padding-1">
-			<div className="row justify-sb align-center">
-				<ControlBar>
-					<h4>Properties</h4>
-				</ControlBar>
-				<Button onClick={() => navigate("add")}>Add Property</Button>
-			</div>
-			{properties ? (
-				<PropertyCards properties={properties} />
-			) : (
-				<h4>Loading Properties...</h4>
-			)}
-		</section>
-	);
+	useEffect(() => {
+		dispatch(
+			setContent(
+				<div className="row justify-sb align-center">
+					<h3>Properties</h3>
+					<Button onClick={() => navigate("add")}>
+						Add Property
+					</Button>
+				</div>
+			)
+		);
+	}, []);
+
+	return <PropertiesTable loading={loading} properties={properties} />;
 };
 
 export default Properties;

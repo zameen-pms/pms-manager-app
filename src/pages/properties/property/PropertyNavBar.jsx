@@ -5,6 +5,7 @@ const PropertyNavBar = () => {
 	return (
 		<StyledPropertyNavBar>
 			<NavLink to="info">Info</NavLink>
+			<NavLink to="documents">Documents</NavLink>
 		</StyledPropertyNavBar>
 	);
 };

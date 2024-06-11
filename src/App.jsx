@@ -5,6 +5,7 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
 import PropertiesHome from "./pages/properties";
+import UsersHome from "./pages/users";
 
 const App = () => {
 	return (
@@ -22,6 +23,7 @@ const App = () => {
 							path="properties/*"
 							element={<PropertiesHome />}
 						/>
+						<Route path="users/*" element={<UsersHome />} />
 					</Route>
 				</Route>
 			</Route>
