@@ -21,7 +21,6 @@ const AddDocumentForm = () => {
 		property: propertyId,
 		type: "",
 		file: "",
-		description: "",
 	});
 	const [customType, setCustomType] = useState("");
 	const { accessToken } = useSelector(getUser);
@@ -59,20 +58,6 @@ const AddDocumentForm = () => {
 						required
 					/>
 				)}
-			</div>
-			<div className="container">
-				<Input
-					label="Description"
-					placeholder="Enter a short description here..."
-					value={document?.description}
-					onChange={(e) =>
-						setDocument({
-							...document,
-							description: e.target.value,
-						})
-					}
-					required
-				/>
 			</div>
 			<div className="container">
 				<FileUpload
