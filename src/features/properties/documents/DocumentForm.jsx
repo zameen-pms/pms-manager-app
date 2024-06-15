@@ -1,25 +1,12 @@
 import { useSelector } from "react-redux";
 import { getUser } from "../../app/authSlice";
-import { useEffect, useState } from "react";
-import getAssetUrl from "../../api/assets/getAssetUrl";
-import PdfViewer from "./pdfViewer/PdfViewer";
+import { useEffect } from "react";
 import { saveAs } from "file-saver";
 import Button from "../../ui/button/Button";
 import getAssetByKey from "../../api/assets/getAssetByKey";
 
 const DocumentForm = ({ document }) => {
 	const { accessToken } = useSelector(getUser);
-	const [url, setUrl] = useState("");
-
-	const fetchAsset = async () => {
-		try {
-			const { data } = await getAssetUrl(accessToken, document.file);
-			setUrl(data);
-		} catch (err) {
-			alert("Unable to fetch asset.");
-			console.log(err.message);
-		}
-	};
 
 	const downloadAsset = async () => {
 		try {
@@ -42,7 +29,6 @@ const DocumentForm = ({ document }) => {
 			{document?.file && (
 				<Button onClick={downloadAsset}>Download Asset</Button>
 			)}
-			<>{url ? <PdfViewer url={url} /> : <p>Loading...</p>}</>
 		</>
 	);
 };

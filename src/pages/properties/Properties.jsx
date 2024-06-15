@@ -6,6 +6,7 @@ import { setContent } from "../../features/app/globalSlice";
 import PropertiesTable from "../../features/properties/PropertiesTable";
 import { getUser } from "../../features/app/authSlice";
 import getProperties from "../../features/api/properties/getProperties";
+import { MdArrowBack } from "react-icons/md";
 
 const Properties = () => {
 	const dispatch = useDispatch();
@@ -35,7 +36,13 @@ const Properties = () => {
 		dispatch(
 			setContent(
 				<div className="row justify-sb align-center">
-					<h3>Properties</h3>
+					<div className="row align-center gap-05">
+						<MdArrowBack
+							className="back-arrow"
+							onClick={() => navigate(-1)}
+						/>
+						<h3>Properties</h3>
+					</div>
 					<Button onClick={() => navigate("add")}>
 						Add Property
 					</Button>
