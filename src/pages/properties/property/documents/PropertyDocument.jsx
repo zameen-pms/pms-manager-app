@@ -61,7 +61,9 @@ const PropertyDocument = ({ property }) => {
 							Document
 						</h3>
 					</div>
-					<Button onClick={handleDelete}>Delete Document</Button>
+					{document?.file && (
+						<Button onClick={handleDelete}>Delete Document</Button>
+					)}
 				</div>
 			)
 		);

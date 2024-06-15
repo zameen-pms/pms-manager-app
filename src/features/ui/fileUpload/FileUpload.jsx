@@ -9,14 +9,18 @@ import removeAssetByKey from "../../api/assets/removeAssetByKey";
 const FileUpload = ({ allowedTypes, file, setFile, required }) => {
 	const { accessToken } = useSelector(getUser);
 	const [deleting, setDeleting] = useState(false);
+	const [loadingFile, setLoadingFile] = useState(false);
 
 	const handleUploadFile = async (selectedFile) => {
+		setLoadingFile(true);
 		try {
 			const { data } = await uploadAsset(accessToken, selectedFile);
 			setFile(data);
 		} catch (err) {
 			alert("Unable to upload file.");
 			console.log(err.message);
+		} finally {
+			setLoadingFile(false);
 		}
 	};
 
@@ -56,12 +60,16 @@ const FileUpload = ({ allowedTypes, file, setFile, required }) => {
 				</StyledUploadedFile>
 			) : (
 				<StyledFileUpload>
-					<input
-						type="file"
-						accept={allowedTypes.join(",")}
-						onChange={handleFileChange}
-						required={required || false}
-					/>
+					{loadingFile ? (
+						<p>Loading file...</p>
+					) : (
+						<input
+							type="file"
+							accept={allowedTypes.join(",")}
+							onChange={handleFileChange}
+							required={required || false}
+						/>
+					)}
 				</StyledFileUpload>
 			)}
 		</>
