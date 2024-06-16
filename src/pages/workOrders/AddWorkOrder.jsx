@@ -4,6 +4,7 @@ import { getUser } from "../../features/app/authSlice";
 import { useEffect } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { setContent } from "../../features/app/globalSlice";
+import CreateWorkOrderForm from "../../features/workOrders/CreateWorkOrderForm";
 
 const AddWorkOrder = () => {
 	const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const AddWorkOrder = () => {
 		);
 	});
 
-	return <div>Add Work Order</div>;
+	return <CreateWorkOrderForm />;
 };
 
 export default AddWorkOrder;

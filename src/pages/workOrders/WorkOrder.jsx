@@ -6,6 +6,8 @@ import { MdArrowBack } from "react-icons/md";
 import Button from "../../features/ui/button/Button";
 import getWorkOrderById from "../../features/api/workOrders/getWorkOrderById";
 import { getUser } from "../../features/app/authSlice";
+import WorkOrderForm from "../../features/workOrders/WorkOrderForm";
+import updateWorkOrderById from "../../features/api/workOrders/updateWorkOrderById";
 
 const WorkOrder = () => {
 	const { workOrderId } = useParams();
@@ -21,6 +23,18 @@ const WorkOrder = () => {
 			setWorkOrder(data);
 		} catch (err) {
 			alert("Unable to fetch maintenance request.");
+			console.log(err.message);
+		}
+	};
+
+	const handleSave = async () => {
+		try {
+			await updateWorkOrderById(accessToken, workOrderId, workOrder);
+			setCanEdit(false);
+			await fetchWorkOrder();
+			alert("Changes have been saved.");
+		} catch (err) {
+			alert("Unable to save changes.");
 			console.log(err.message);
 		}
 	};
@@ -44,15 +58,26 @@ const WorkOrder = () => {
 							<h3>Maintenance Request</h3>
 						)}
 					</div>
-					<Button onClick={() => setCanEdit(!canEdit)}>
-						{canEdit ? "Cancel" : "Edit Request"}
-					</Button>
+					<div className="row gap-05">
+						{canEdit && (
+							<Button onClick={handleSave}>Save Changes</Button>
+						)}
+						<Button onClick={() => setCanEdit(!canEdit)}>
+							{canEdit ? "Cancel" : "Edit Request"}
+						</Button>
+					</div>
 				</div>
 			)
 		);
 	}, [workOrder, canEdit]);
 
-	return <div>Work Order</div>;
+	return (
+		<WorkOrderForm
+			workOrder={workOrder}
+			setWorkOrder={setWorkOrder}
+			canEdit={canEdit}
+		/>
+	);
 };
 
 export default WorkOrder;
