@@ -9,11 +9,6 @@ const columns = [
 		width: 300,
 	},
 	{
-		field: "description",
-		headerName: "Description",
-		width: 450,
-	},
-	{
 		field: "createdAt",
 		headerName: "Created At",
 		width: 200,
@@ -25,6 +20,7 @@ const PropertyDocumentsTable = ({ loading, documents }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		console.log(documents);
 		setData(
 			documents.map((document) => ({
 				...document,

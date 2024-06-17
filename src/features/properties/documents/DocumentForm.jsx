@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { getUser } from "../../app/authSlice";
-import { useEffect } from "react";
 import { saveAs } from "file-saver";
 import Button from "../../ui/button/Button";
 import getAssetByKey from "../../api/assets/getAssetByKey";
@@ -17,12 +16,6 @@ const DocumentForm = ({ document }) => {
 			console.log(err.message);
 		}
 	};
-
-	useEffect(() => {
-		if (document?.file) {
-			fetchAsset();
-		}
-	}, [document]);
 
 	return (
 		<>

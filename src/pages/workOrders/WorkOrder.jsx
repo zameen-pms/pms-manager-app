@@ -43,6 +43,20 @@ const WorkOrder = () => {
 		fetchWorkOrder();
 	}, []);
 
+	const handleEdit = async () => {
+		try {
+			if (canEdit) {
+				await fetchWorkOrder();
+				setCanEdit(false);
+			} else {
+				setCanEdit(true);
+			}
+		} catch (err) {
+			alert("Unable to edit work order.");
+			console.log(err.message);
+		}
+	};
+
 	useEffect(() => {
 		dispatch(
 			setContent(
@@ -62,7 +76,7 @@ const WorkOrder = () => {
 						{canEdit && (
 							<Button onClick={handleSave}>Save Changes</Button>
 						)}
-						<Button onClick={() => setCanEdit(!canEdit)}>
+						<Button onClick={handleEdit}>
 							{canEdit ? "Cancel" : "Edit Request"}
 						</Button>
 					</div>
@@ -76,6 +90,7 @@ const WorkOrder = () => {
 			workOrder={workOrder}
 			setWorkOrder={setWorkOrder}
 			canEdit={canEdit}
+			fetchWorkOrder={fetchWorkOrder}
 		/>
 	);
 };
