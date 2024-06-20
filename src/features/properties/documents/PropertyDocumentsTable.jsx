@@ -20,7 +20,6 @@ const PropertyDocumentsTable = ({ loading, documents }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log(documents);
 		setData(
 			documents.map((document) => ({
 				...document,

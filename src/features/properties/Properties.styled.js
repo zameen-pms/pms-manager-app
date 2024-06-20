@@ -74,3 +74,43 @@ export const StyledPropertyCard = styled.div`
 		}
 	}
 `;
+
+export const StyledPropertyImages = styled.div`
+	display: grid;
+	width: 100%;
+	grid-template-columns: auto auto auto;
+	grid-gap: 1rem;
+`;
+
+export const StyledPropertyImage = styled.div`
+	&:hover {
+		svg {
+			display: block;
+		}
+	}
+
+	svg {
+		display: none;
+		width: 35px;
+		height: 35px;
+		background: whitesmoke;
+		border-radius: 8px;
+		color: black;
+		cursor: pointer;
+		transition: all 0.25s ease-in-out;
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		z-index: 5;
+
+		&:hover {
+			color: red;
+		}
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		border-radius: 5px;
+	}
+`;
