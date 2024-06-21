@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import FileUpload from "../../../features/ui/fileUpload/FileUpload";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../../features/app/authSlice";
 import getPropertyById from "../../../features/api/properties/getPropertyById";
 import PropertyImage from "../../../features/properties/PropertyImage";
 import updatePropertyById from "../../../features/api/properties/updatePropertyById";
 import { StyledPropertyImages } from "../../../features/properties/Properties.styled";
 import removeAssetByKey from "../../../features/api/assets/removeAssetByKey";
+import { setContent } from "../../../features/app/globalSlice";
+import { MdArrowBack } from "react-icons/md";
 
 const PropertyImages = () => {
 	const { propertyId } = useParams();
 	const { accessToken } = useSelector(getUser);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [property, setProperty] = useState(null);
 	const [file, setFile] = useState("");
 
@@ -28,6 +32,22 @@ const PropertyImages = () => {
 	useEffect(() => {
 		fetchProperty();
 	}, []);
+
+	useEffect(() => {
+		dispatch(
+			setContent(
+				<div className="row align-center gap-05">
+					<MdArrowBack
+						className="back-arrow"
+						onClick={() => navigate("/properties")}
+					/>
+					<h3>
+						{property?.address?.street || "Property Data"} - Images
+					</h3>
+				</div>
+			)
+		);
+	});
 
 	const updateProperty = async () => {
 		try {

@@ -18,13 +18,13 @@ const AddProperty = () => {
 			state: "",
 			zip: "",
 		},
+		general: {
+			beds: 0,
+			baths: 0,
+			sqft: 0,
+			rent: 0,
+		},
 	});
-
-	useEffect(() => {
-		if (user?._id) {
-			setProperty({ ...property, manager: user._id });
-		}
-	}, [user]);
 
 	const handleSave = async (e) => {
 		e?.preventDefault();
