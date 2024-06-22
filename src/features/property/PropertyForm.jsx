@@ -142,6 +142,20 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 							disabled={!canEdit}
 							required
 						/>
+						<Input
+							label="Description"
+							value={property?.general?.description || ""}
+							onChange={(e) =>
+								setProperty({
+									...property,
+									general: {
+										...property.general,
+										description: e.target.value,
+									},
+								})
+							}
+							disabled={!canEdit}
+						/>
 					</div>
 				</div>
 				{canEdit && <Button type="submit">Save</Button>}

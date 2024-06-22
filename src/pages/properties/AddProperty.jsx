@@ -23,6 +23,7 @@ const AddProperty = () => {
 			baths: 0,
 			sqft: 0,
 			rent: 0,
+			description: "",
 		},
 	});
 
