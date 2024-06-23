@@ -7,6 +7,7 @@ import Layout from "./features/layout/Layout";
 import PropertiesHome from "./pages/properties";
 import UsersHome from "./pages/users";
 import WorkOrdersHome from "./pages/workOrders";
+import ApplicationsHome from "./pages/applications";
 
 const App = () => {
 	return (
@@ -20,6 +21,10 @@ const App = () => {
 				<Route element={<RequireAuth allowedRoles={["Manager"]} />}>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Navigate to="properties" />} />
+						<Route
+							path="applications/*"
+							element={<ApplicationsHome />}
+						/>
 						<Route
 							path="maintenance/*"
 							element={<WorkOrdersHome />}
