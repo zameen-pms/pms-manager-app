@@ -10,6 +10,7 @@ export const StyledModal = styled.section`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 1000;
 
 	div.modal {
 		width: 500px;

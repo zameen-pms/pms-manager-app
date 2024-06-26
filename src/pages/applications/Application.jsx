@@ -8,6 +8,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import getApplicationById from "../../features/api/applications/getApplicationById";
 import { getUser } from "../../features/app/authSlice";
 import ApplicationPdf from "../../features/applications/ApplicationPdf";
+import ApplicationIncomeFiles from "../../features/applications/ApplicationIncomeFiles";
 
 const Application = () => {
 	const { applicationId } = useParams();
@@ -23,7 +24,6 @@ const Application = () => {
 				accessToken,
 				applicationId
 			);
-			console.log(data);
 			setApplication(data);
 		} catch (err) {
 			alert("Unable to fetch application");
@@ -61,9 +61,20 @@ const Application = () => {
 	if (!application) return <p>Retrieving Application...</p>;
 
 	return (
-		<PDFViewer style={{ height: "90vh", width: "auto" }}>
-			<ApplicationPdf app={application} />
-		</PDFViewer>
+		<div className="column gap-2">
+			<div className="column gap-1">
+				<h3>Income Files:</h3>
+				<ApplicationIncomeFiles
+					files={application?.incomeFiles || []}
+				/>
+			</div>
+			<div className="column gap-1">
+				<h3>Application:</h3>
+				<PDFViewer style={{ height: "90vh", width: "auto" }}>
+					<ApplicationPdf app={application} />
+				</PDFViewer>
+			</div>
+		</div>
 	);
 };
 
