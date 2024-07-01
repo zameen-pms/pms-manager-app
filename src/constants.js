@@ -1,1 +1,1 @@
-export const URL = "https://zameen-management-24ac92f022d1.herokuapp.com";
+export const URL = import.meta.env.VITE_BACKEND_URL;
