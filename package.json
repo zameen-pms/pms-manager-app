@@ -6,8 +6,8 @@
 	"scripts": {
 		"prod": "vite",
 		"build": "vite build",
-		"staging": "vite --mode staging",
-		"build:staging": "vite build --mode staging"
+		"dev": "vite --mode dev",
+		"build:dev": "vite build --mode dev"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.1",
