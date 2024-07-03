@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../features/ui/button/Button";
 import { setContent } from "../../features/app/globalSlice";
 import { MdArrowBack } from "react-icons/md";
 import { PDFViewer } from "@react-pdf/renderer";
@@ -16,7 +15,6 @@ const Application = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [application, setApplication] = useState(null);
-	const [canEdit, setCanEdit] = useState(false);
 
 	const fetchApp = async () => {
 		try {
@@ -39,37 +37,40 @@ const Application = () => {
 	useEffect(() => {
 		dispatch(
 			setContent(
-				<div className="row align-center justify-sb">
-					<div className="row align-center gap-05">
-						<MdArrowBack
-							className="back-arrow"
-							onClick={() => navigate(-1)}
-						/>
+				<div className="row align-center gap-05">
+					<MdArrowBack
+						className="back-arrow"
+						onClick={() => navigate(-1)}
+					/>
+					{application ? (
+						<h3>
+							Application:{" "}
+							{`${application?.applicant?.firstName} ${application?.applicant?.lastName}`}
+						</h3>
+					) : (
 						<h3>Application</h3>
-					</div>
-					<div className="row align-center gap-05">
-						{canEdit && <Button>Save</Button>}
-						<Button onClick={() => setCanEdit(!canEdit)}>
-							{canEdit ? "Cancel" : "Edit Application"}
-						</Button>
-					</div>
+					)}
 				</div>
 			)
 		);
-	}, [canEdit]);
+	}, [application]);
 
 	if (!application) return <p>Retrieving Application...</p>;
 
 	return (
 		<div className="column gap-2">
 			<div className="column gap-1">
-				<h3>Income Files:</h3>
+				<h4>Payment Status:</h4>
+				<p>Has paid: {application?.hasPaid ? "YES" : "NO"}</p>
+			</div>
+			<div className="column gap-1">
+				<h4>Income Files:</h4>
 				<ApplicationIncomeFiles
 					files={application?.incomeFiles || []}
 				/>
 			</div>
 			<div className="column gap-1">
-				<h3>Application:</h3>
+				<h4>Application:</h4>
 				<PDFViewer style={{ height: "90vh", width: "auto" }}>
 					<ApplicationPdf app={application} />
 				</PDFViewer>
