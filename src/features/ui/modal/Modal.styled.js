@@ -13,7 +13,7 @@ export const StyledModal = styled.section`
 	z-index: 1000;
 
 	div.modal {
-		width: 500px;
+		width: 600px;
 		padding: 2rem;
 		display: flex;
 		flex-direction: column;

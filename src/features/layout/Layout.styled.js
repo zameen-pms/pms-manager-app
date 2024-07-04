@@ -8,6 +8,8 @@ export const StyledLayout = styled.main`
 
 export const StyledBody = styled.section`
 	flex: 1;
+	width: 100%;
+	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;

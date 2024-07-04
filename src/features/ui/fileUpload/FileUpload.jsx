@@ -1,78 +1,58 @@
-import { useSelector } from "react-redux";
-import uploadAsset from "../../api/assets/uploadAsset";
-import { StyledFileUpload, StyledUploadedFile } from "./FileUpload.styled";
-import { getUser } from "../../app/authSlice";
-import { MdDelete } from "react-icons/md";
+import { MdUploadFile } from "react-icons/md";
+import { StyledFileUpload } from "./FileUpload.styled";
 import { useState } from "react";
-import removeAssetByKey from "../../api/assets/removeAssetByKey";
 
-const FileUpload = ({ allowedTypes, file, setFile, required }) => {
-	const { accessToken } = useSelector(getUser);
-	const [deleting, setDeleting] = useState(false);
-	const [loadingFile, setLoadingFile] = useState(false);
-
-	const handleUploadFile = async (selectedFile) => {
-		setLoadingFile(true);
-		try {
-			const { data } = await uploadAsset(accessToken, selectedFile);
-			setFile(data);
-		} catch (err) {
-			alert("Unable to upload file.");
-			console.log(err.message);
-		} finally {
-			setLoadingFile(false);
-		}
-	};
+const FileUpload = ({ allowedTypes, setSelectedFiles }) => {
+	const [errors, setErrors] = useState([]);
 
 	const handleFileChange = (event) => {
-		const file = event.target.files[0];
-		if (file && allowedTypes.includes(file.type)) {
-			handleUploadFile(file);
-		} else {
-			setSelectedFile(null);
-			alert("Please select a valid file type");
-		}
-	};
+		const files = Array.from(event.target.files);
+		const validFiles = [];
+		const newErrors = [];
 
-	const handleDeleteAsset = async () => {
-		try {
-			setDeleting(true);
-			await removeAssetByKey(accessToken, file);
-			setFile(null);
-		} catch (err) {
-			alert("Unable to delete asset.");
-			console.log(err.message);
-		} finally {
-			setDeleting(false);
-		}
+		files.forEach((file) => {
+			if (allowedTypes.includes(file.type)) {
+				setSelectedFiles((prevFiles) => {
+					const fileExists = prevFiles.some(
+						(prevFile) => prevFile.name === file.name
+					);
+					if (!fileExists) {
+						validFiles.push(file);
+					} else {
+						newErrors.push(`File already uploaded: ${file.name}`);
+					}
+					return prevFiles;
+				});
+			} else {
+				newErrors.push(`File type not allowed: ${file.name}`);
+			}
+		});
+
+		setSelectedFiles((prevFiles) => [...prevFiles, ...validFiles]);
+		setErrors(newErrors);
 	};
 
 	return (
-		<>
-			{file ? (
-				<StyledUploadedFile>
-					<p>{file}</p>
-					{deleting ? (
-						<p className="deleting-text">Deleting...</p>
-					) : (
-						<MdDelete onClick={handleDeleteAsset} />
-					)}
-				</StyledUploadedFile>
-			) : (
-				<StyledFileUpload>
-					{loadingFile ? (
-						<p>Loading file...</p>
-					) : (
-						<input
-							type="file"
-							accept={allowedTypes.join(",")}
-							onChange={handleFileChange}
-							required={required || false}
-						/>
-					)}
-				</StyledFileUpload>
-			)}
-		</>
+		<StyledFileUpload>
+			<ul>
+				{errors.length > 0 && <p>Errors:</p>}
+				{errors.map((error, index) => (
+					<li key={index}>{error}</li>
+				))}
+			</ul>
+			<label htmlFor="file-upload">
+				<MdUploadFile />
+				Upload Image(s)
+			</label>
+			<input
+				id="file-upload"
+				type="file"
+				multiple
+				onChange={handleFileChange}
+				accept={allowedTypes.join(",")}
+				hidden
+			/>
+		</StyledFileUpload>
 	);
 };
 
