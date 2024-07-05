@@ -18,3 +18,30 @@ export const StyledIncomeFile = styled.div`
 		width: auto;
 	}
 `;
+
+export const StyledApplicationForm = styled.form`
+	padding: 1rem;
+
+	h4 {
+		color: var(--primary-blue);
+		margin-bottom: 1rem;
+	}
+
+	h5 {
+		font-weight: 700;
+		letter-spacing: 0.25px;
+		font-size: 12px;
+		margin-bottom: 0.25rem;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+`;
+
+export const ApplicationGrid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1rem;
+`;

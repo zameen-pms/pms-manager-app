@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setContent } from "../../features/app/globalSlice";
 import { MdArrowBack } from "react-icons/md";
-import { PDFViewer } from "@react-pdf/renderer";
 import getApplicationById from "../../features/api/applications/getApplicationById";
 import { getUser } from "../../features/app/authSlice";
-import ApplicationPdf from "../../features/applications/ApplicationPdf";
-import ApplicationIncomeFiles from "../../features/applications/ApplicationIncomeFiles";
+import Tab from "../../features/ui/tab/Tab";
+import ApplicationOverview from "../../features/applications/ApplicationOverview";
+import ApplicationForm from "../../features/applications/ApplicationForm";
 
 const Application = () => {
 	const { applicationId } = useParams();
@@ -15,6 +15,8 @@ const Application = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [application, setApplication] = useState(null);
+	const [tab, setTab] = useState("Overview");
+	const [render, setRender] = useState(null);
 
 	const fetchApp = async () => {
 		try {
@@ -55,27 +57,25 @@ const Application = () => {
 		);
 	}, [application]);
 
+	useEffect(() => {
+		if (tab === "Overview") {
+			setRender(<ApplicationOverview application={application} />);
+		} else {
+			setRender(<ApplicationForm application={application} />);
+		}
+	}, [tab, application]);
+
 	if (!application) return <p>Retrieving Application...</p>;
 
 	return (
-		<div className="column gap-2">
-			<div className="column gap-1">
-				<h4>Payment Status:</h4>
-				<p>Has paid: {application?.hasPaid ? "YES" : "NO"}</p>
-			</div>
-			<div className="column gap-1">
-				<h4>Income Files:</h4>
-				<ApplicationIncomeFiles
-					files={application?.incomeFiles || []}
-				/>
-			</div>
-			<div className="column gap-1">
-				<h4>Application:</h4>
-				<PDFViewer style={{ height: "90vh", width: "auto" }}>
-					<ApplicationPdf app={application} />
-				</PDFViewer>
-			</div>
-		</div>
+		<>
+			<Tab
+				options={["Overview", "Application"]}
+				tab={tab}
+				setTab={setTab}
+			/>
+			{render}
+		</>
 	);
 };
 
