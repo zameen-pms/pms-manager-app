@@ -1,35 +1,30 @@
-import { useEffect, useState } from "react";
-import { URL } from "../../constants";
 import Input from "../ui/input/Input";
 import { getDollarAmount } from "../utils/getDollarAmount";
 import { ApplicationGrid, StyledApplicationForm } from "./Applications.styled";
-import { convertImageToBase64 } from "../utils/getImageToBase64";
+import { formatSSN } from "../utils/formatSSN";
+import getAssetByKey from "../api/assets/getAssetByKey";
+import { useSelector } from "react-redux";
+import { getUser } from "../app/authSlice";
+import Button from "../ui/button/Button";
 
 const ApplicationForm = ({ application }) => {
-	const [incomeFiles, setIncomeFiles] = useState([]);
+	const { accessToken } = useSelector(getUser);
 
-	useEffect(() => {
-		const fetchIncomeFiles = async () => {
-			try {
-				const files = await Promise.all(
-					application.incomeFiles.map(async (file) => {
-						const base64 = await convertImageToBase64(
-							`${URL}/assets/url/${file}`
-						);
-						return base64;
-					})
-				);
-				setIncomeFiles(files);
-			} catch (err) {
-				alert("Unable to fetch income files.");
-				console.log(err.message);
-			}
-		};
-
-		if (application?.incomeFiles?.length > 0) {
-			fetchIncomeFiles();
+	const downloadFile = async (file) => {
+		try {
+			const response = await getAssetByKey(accessToken, file);
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement("a");
+			link.href = url;
+			link.setAttribute("download", file);
+			document.body.appendChild(link);
+			link.click();
+			link.parentNode.removeChild(link);
+		} catch (err) {
+			alert("Unable to download file.");
+			console.log(err.message);
 		}
-	}, [application]);
+	};
 
 	return (
 		<StyledApplicationForm
@@ -65,7 +60,7 @@ const ApplicationForm = ({ application }) => {
 					/>
 					<Input
 						label="SSN"
-						value={application?.applicant?.ssn || ""}
+						value={formatSSN(application?.applicant?.ssn) || ""}
 						readOnly
 						disabled
 					/>
@@ -643,8 +638,10 @@ const ApplicationForm = ({ application }) => {
 			</div>
 
 			<div className="column gap-1">
-				{incomeFiles.map((base64, index) => (
-					<img key={index} src={base64} alt="Proof of income" />
+				{application?.incomeFiles?.map((file, index) => (
+					<Button onClick={() => downloadFile(file)} key={file}>
+						{`Download file #${index + 1}`}
+					</Button>
 				))}
 			</div>
 		</StyledApplicationForm>

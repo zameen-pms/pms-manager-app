@@ -24,7 +24,7 @@ const ApplicationOverview = ({ application }) => {
 				/>
 				<Input
 					label="Signature Date"
-					value={application?.signature?.date}
+					value={application?.signature?.date || ""}
 					type="text"
 					readOnly
 					disabled
