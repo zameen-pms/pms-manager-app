@@ -4,8 +4,8 @@ import Table from "../ui/table/Table";
 
 const columns = [
 	{
-		field: "user",
-		headerName: "User",
+		field: "applicant",
+		headerName: "Applicant",
 		width: 250,
 	},
 	{
@@ -34,28 +34,17 @@ const ApplicationsTable = ({ loading, applications }) => {
 	const [data, setData] = useState([]);
 	const navigate = useNavigate();
 
-	const getFullName = (user) => {
-		if (!user?.firstName && !user?.lastName) return "";
-
-		let name = "";
-
-		if (user?.firstName) name += user.firstName;
-		if (user?.lastName) name += ` ${user.lastName}`;
-
-		return name;
-	};
-
 	useEffect(() => {
 		setData(
 			applications.map((app) => ({
 				...app,
 				id: app._id,
-				user: getFullName(app.user),
+				applicant: app?.signature?.name || "N/A",
 				property: app.property?.address?.street || "N/A",
 				createdAt: app.createdAt.split("T")[0],
 			}))
 		);
-	}, []);
+	}, [applications]);
 
 	const handleRowClick = ({ id }) => {
 		navigate(`/applications/${id}`);
