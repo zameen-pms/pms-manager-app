@@ -60,7 +60,7 @@ const ApplicationForm = ({ application }) => {
 					/>
 					<Input
 						label="SSN"
-						value={formatSSN(application?.applicant?.ssn) || ""}
+						value={formatSSN(application?.applicant?.ssn || "")}
 						readOnly
 						disabled
 					/>
