@@ -2,24 +2,17 @@ import Input from "../ui/input/Input";
 import { getDollarAmount } from "../utils/getDollarAmount";
 import { ApplicationGrid, StyledApplicationForm } from "./Applications.styled";
 import { formatSSN } from "../utils/formatSSN";
-import getAssetByKey from "../api/assets/getAssetByKey";
 import { useSelector } from "react-redux";
 import { getUser } from "../app/authSlice";
 import Button from "../ui/button/Button";
+import { downloadAsset } from "../utils/downloadAsset";
 
 const ApplicationForm = ({ application }) => {
 	const { accessToken } = useSelector(getUser);
 
 	const downloadFile = async (file) => {
 		try {
-			const response = await getAssetByKey(accessToken, file);
-			const url = window.URL.createObjectURL(new Blob([response.data]));
-			const link = document.createElement("a");
-			link.href = url;
-			link.setAttribute("download", file);
-			document.body.appendChild(link);
-			link.click();
-			link.parentNode.removeChild(link);
+			await downloadAsset(accessToken, file);
 		} catch (err) {
 			alert("Unable to download file.");
 			console.log(err.message);
