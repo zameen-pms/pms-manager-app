@@ -92,7 +92,7 @@ const ApplicationForm = ({ application }) => {
 			</div>
 
 			<div className="column">
-				<h5>All Other Occupants (18+)</h5>
+				<h5>All Other Occupants (Under 18)</h5>
 				<ApplicationGrid>
 					<Input
 						label="Name"
