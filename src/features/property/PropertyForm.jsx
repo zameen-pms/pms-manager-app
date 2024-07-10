@@ -1,4 +1,5 @@
 import Button from "../ui/button/Button";
+import Dropdown from "../ui/dropdown/Dropdown";
 import Input from "../ui/input/Input";
 import { StyledPropertyForm } from "./PorpertyForm.styled";
 
@@ -154,6 +155,23 @@ const PropertyForm = ({ property, setProperty, canEdit, handleSave }) => {
 									},
 								})
 							}
+							disabled={!canEdit}
+						/>
+						<Dropdown
+							label="Availability"
+							options={[
+								{ value: "Available" },
+								{ value: "Unavailable" },
+								{ value: "Occupied" },
+							]}
+							value={property?.availability || ""}
+							onChange={(e) =>
+								setProperty({
+									...property,
+									availability: e.value,
+								})
+							}
+							required
 							disabled={!canEdit}
 						/>
 					</div>
