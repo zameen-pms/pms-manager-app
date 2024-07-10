@@ -1,8 +1,15 @@
 import Input from "../ui/input/Input";
+import { getAddress } from "../utils/getAddress";
 
 const ApplicationOverview = ({ application }) => {
 	return (
 		<div className="column gap-1">
+			<Input
+				label="Property"
+				value={getAddress(application?.property?.address) || ""}
+				readOnly
+				disabled
+			/>
 			<Input
 				label="Application Status"
 				value={application?.status || ""}
