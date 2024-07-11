@@ -16,7 +16,7 @@ const PropertyImage = ({
 }) => {
 	return (
 		<StyledPropertyImage>
-			<img src={`${URL}/assets/url/${image.key}`} alt="Property" />
+			<img src={`${URL}/assets/${image.key}/redirect`} alt="Property" />
 			{image.description && <p>{image.description}</p>}
 			<div className="overlay">
 				<MdDelete
