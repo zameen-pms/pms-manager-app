@@ -14,9 +14,11 @@ const SignInModal = () => {
 		e.preventDefault();
 		try {
 			await handleLogin(email, password);
+			alert("success");
 			navigate("/properties");
 		} catch (err) {
 			console.log(err.message);
+			alert(err.message);
 		}
 	};
 
