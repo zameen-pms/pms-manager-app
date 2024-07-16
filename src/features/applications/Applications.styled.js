@@ -24,24 +24,41 @@ export const StyledApplicationForm = styled.form`
 
 	h4 {
 		color: var(--primary-blue);
-		margin-bottom: 1rem;
+		margin-bottom: 0.5rem;
+		font-weight: 400;
+		font-size: 22px;
 	}
 
-	h5 {
-		font-weight: 700;
-		letter-spacing: 0.25px;
-		font-size: 12px;
-		margin-bottom: 0.25rem;
-	}
+	.img-container {
+		width: 33%;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
 
-	img {
-		width: 100%;
-		height: auto;
+		p {
+			text-align: center;
+			color: var(--primary-blue);
+			cursor: pointer;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+		}
 	}
+`;
+
+export const ApplicationSection = styled.section`
+	display: flex;
+	flex-direction: column;
 `;
 
 export const ApplicationGrid = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 	gap: 1rem;
 `;

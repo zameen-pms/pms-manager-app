@@ -1,12 +1,15 @@
+import { v4 } from "uuid";
 import { StyledInput } from "./Input.styled";
 
 const Input = (props) => {
+	const inputId = props?.id || v4();
+
 	return (
 		<StyledInput>
-			<label htmlFor={props?.id || ""}>{`${props?.label}${
+			<label htmlFor={inputId}>{`${props?.label}${
 				props?.required ? "*" : ""
 			}`}</label>
-			<input {...props} />
+			<input id={inputId} {...props} />
 		</StyledInput>
 	);
 };

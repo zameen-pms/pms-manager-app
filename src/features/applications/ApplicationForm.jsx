@@ -1,11 +1,16 @@
 import Input from "../ui/input/Input";
 import { getDollarAmount } from "../utils/getDollarAmount";
-import { ApplicationGrid, StyledApplicationForm } from "./Applications.styled";
+import {
+	ApplicationGrid,
+	ApplicationSection,
+	StyledApplicationForm,
+} from "./Applications.styled";
 import { formatSSN } from "../utils/formatSSN";
 import { useSelector } from "react-redux";
 import { getUser } from "../app/authSlice";
-import Button from "../ui/button/Button";
 import { downloadAsset } from "../utils/downloadAsset";
+import { getTextDate } from "../utils/getTextDate";
+import { getImageUrl } from "../utils/getImageUrl";
 
 const ApplicationForm = ({ application }) => {
 	const { accessToken } = useSelector(getUser);
@@ -24,619 +29,326 @@ const ApplicationForm = ({ application }) => {
 			className="column gap-2"
 			onSubmit={(e) => e.preventDefault()}
 		>
-			<div className="column">
-				<h4>Applicant Information</h4>
+			<ApplicationSection>
+				<h4>Personal Information</h4>
 				<ApplicationGrid>
 					<Input
 						label="First Name"
-						value={application?.applicant?.firstName || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Middle Name"
-						value={application?.applicant?.middleName || ""}
+						value={application?.personal?.firstName || ""}
 						readOnly
 						disabled
 					/>
 					<Input
 						label="Last Name"
-						value={application?.applicant?.lastName || ""}
+						value={application?.personal?.lastName || ""}
 						readOnly
 						disabled
 					/>
 					<Input
-						label="Birth Date"
-						value={application?.applicant?.dob || ""}
+						label="Date of Birth"
+						value={getTextDate(application?.personal?.dob) || ""}
 						readOnly
 						disabled
 					/>
 					<Input
 						label="SSN"
-						value={formatSSN(application?.applicant?.ssn || "")}
+						value={formatSSN(application?.personal?.ssn) || ""}
+						readOnly
+						disabled
+					/>
+					<Input
+						label="Phone Number"
+						value={application?.personal?.phoneNumber || ""}
 						readOnly
 						disabled
 					/>
 					<Input
 						label="Email Address"
-						value={application?.applicant?.email || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Cell Phone"
-						value={application?.applicant?.cellPhone || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Home Phone"
-						value={application?.applicant?.homePhone || ""}
+						value={application?.personal?.email || ""}
 						readOnly
 						disabled
 					/>
 					<Input
 						label="Driver's License"
-						value={application?.applicant?.driversLicense || ""}
+						value={application?.personal?.driversLicense || ""}
 						readOnly
 						disabled
 					/>
 				</ApplicationGrid>
-			</div>
+			</ApplicationSection>
 
-			<div className="column">
-				<h5>All Other Occupants (Under 18)</h5>
-				<ApplicationGrid>
-					<Input
-						label="Name"
-						value={application?.occupantA?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Birth Date"
-						value={application?.occupantA?.dob || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Relation to Applicant"
-						value={application?.occupantA?.relation || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-				<ApplicationGrid>
-					<Input
-						label="Name"
-						value={application?.occupantB?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Birth Date"
-						value={application?.occupantB?.dob || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Relation to Applicant"
-						value={application?.occupantB?.relation || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-				<ApplicationGrid>
-					<Input
-						label="Name"
-						value={application?.occupantC?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Birth Date"
-						value={application?.occupantC?.dob || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Relation to Applicant"
-						value={application?.occupantC?.relation || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
+			<ApplicationSection>
 				<h4>Rental History</h4>
-				<h5>Current Residence</h5>
-				<ApplicationGrid>
-					<Input
-						label="Address"
-						value={application?.currentResidence?.address || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="City"
-						value={application?.currentResidence?.city || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="State"
-						value={application?.currentResidence?.state || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Zip Code"
-						value={application?.currentResidence?.zip || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Monthly Rent"
-						value={application?.currentResidence?.monthlyRent || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Dates of Residency"
-						value={application?.currentResidence?.dates || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Reason for Moving"
-						value={
-							application?.currentResidence?.movingReason || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Manager's Name"
-						value={application?.currentResidence?.managerName || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Manager's Number"
-						value={
-							application?.currentResidence?.managerNumber || ""
-						}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
+				<div className="column gap-2">
+					{application?.addresses?.map((address, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label="Street"
+								value={address?.street || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="City"
+								value={address?.city || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="State"
+								value={address?.state || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Zip Code"
+								value={address?.zip || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Start Date"
+								value={getTextDate(address?.fromDate) || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="End Date"
+								value={
+									getTextDate(address?.toDate) || "Current"
+								}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Reason For Leaving"
+								value={address?.leavingReason || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Landord Name"
+								value={address?.landlordName || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Landlord Contact Info"
+								value={address?.landlordContactInfo || ""}
+								readOnly
+								disabled
+							/>
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
 
-			<div className="column">
-				<h5>Previous Residence</h5>
-				<ApplicationGrid>
-					<Input
-						label="Address"
-						value={application?.previousResidence?.address || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="City"
-						value={application?.previousResidence?.city || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="State"
-						value={application?.previousResidence?.state || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Zip Code"
-						value={application?.previousResidence?.zip || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Monthly Rent"
-						value={
-							application?.previousResidence?.monthlyRent || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Dates of Residency"
-						value={application?.previousResidence?.dates || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Reason for Moving"
-						value={
-							application?.previousResidence?.movingReason || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Manager's Name"
-						value={
-							application?.previousResidence?.managerName || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Manager's Number"
-						value={
-							application?.previousResidence?.managerNumber || ""
-						}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
+			<ApplicationSection>
+				<h4>Work History</h4>
+				<div className="column gap-2">
+					{application?.employers?.map((employer, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label="Employer Name"
+								value={employer?.name || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Job Title"
+								value={employer?.title || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Employer Address"
+								value={employer?.address || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Start Date"
+								value={getTextDate(employer?.fromDate) || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="End Date"
+								value={
+									getTextDate(employer?.toDate) || "Current"
+								}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Monthly Income"
+								value={
+									getDollarAmount(employer?.monthlyIncome) ||
+									""
+								}
+								readOnly
+								disabled
+							/>
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
 
-			<div className="column">
-				<h4>Employment History</h4>
-				<h5>Current Employer</h5>
-				<ApplicationGrid>
-					<Input
-						label="Employer Name"
-						value={application?.currentEmployer?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Occupation"
-						value={application?.currentEmployer?.occupation || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Employer Address"
-						value={application?.currentEmployer?.address || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Employer Phone Number"
-						value={application?.currentEmployer?.phone || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Dates of Employment"
-						value={application?.currentEmployer?.dates || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Supervisor Name"
-						value={
-							application?.currentEmployer?.supervisorName || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Monthly Pay"
-						value={getDollarAmount(
-							application?.currentEmployer?.monthlyPay || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
+			<ApplicationSection>
+				<h4>Finances</h4>
+				<div className="column gap-2">
+					{application?.finances?.map((finance, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label="Institution/Account Name"
+								value={finance?.name || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Balance"
+								value={getDollarAmount(finance?.amount) || ""}
+								readOnly
+								disabled
+							/>
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
 
-			<div className="column">
-				<h5>Previous Employer</h5>
-				<ApplicationGrid>
-					<Input
-						label="Employer Name"
-						value={application?.previousEmployer?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Occupation"
-						value={application?.previousEmployer?.occupation || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Employer Address"
-						value={application?.previousEmployer?.address || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Employer Phone Number"
-						value={application?.previousEmployer?.phone || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Dates of Employment"
-						value={application?.previousEmployer?.dates || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Supervisor Name"
-						value={
-							application?.previousEmployer?.supervisorName || ""
-						}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Monthly Pay"
-						value={getDollarAmount(
-							application?.previousEmployer?.monthlyPay || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h4>Credit History</h4>
-				<h5>Checkings Account</h5>
-				<ApplicationGrid>
-					<Input
-						label="Bank/Institution"
-						value={application?.checkings?.bank || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Balance / Balance Owed"
-						value={getDollarAmount(
-							application?.checkings?.balance || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h5>Savings Account</h5>
-				<ApplicationGrid>
-					<Input
-						label="Bank/Institution"
-						value={application?.savings?.bank || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Balance / Balance Owed"
-						value={getDollarAmount(
-							application?.savings?.balance || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h5>Credit Card(s)</h5>
-				<ApplicationGrid>
-					<Input
-						label="Bank/Institution"
-						value={application?.creditCard?.bank || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Balance / Balance Owed"
-						value={getDollarAmount(
-							application?.creditCard?.balance || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h5>Auto Loan(s)</h5>
-				<ApplicationGrid>
-					<Input
-						label="Bank/Institution"
-						value={application?.autoLoan?.bank || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Balance / Balance Owed"
-						value={getDollarAmount(
-							application?.autoLoan?.balance || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h5>Additional Debt</h5>
-				<ApplicationGrid>
-					<Input
-						label="Bank/Institution"
-						value={application?.otherDebt?.bank || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Balance / Balance Owed"
-						value={getDollarAmount(
-							application?.otherDebt?.balance || 0
-						)}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
+			<ApplicationSection>
 				<h4>References</h4>
+				<div className="column gap-2">
+					{application?.references?.map((reference, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label="Name"
+								value={reference?.name || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Phone Number"
+								value={reference?.phoneNumber || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Relation to Applicant"
+								value={reference?.relationship || ""}
+								readOnly
+								disabled
+							/>
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
+
+			<ApplicationSection>
+				<h4>General Questions</h4>
+				<div className="column gap-2">
+					{application?.questions?.map((question, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label={question?.question || ""}
+								value={question?.response || ""}
+								readOnly
+								disabled
+							/>
+							{question?.reason && (
+								<Input
+									label="Reasoning"
+									value={question?.reason || ""}
+									readOnly
+									disabled
+								/>
+							)}
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
+
+			<ApplicationSection>
+				<h4>Dependents & Co-Applicants</h4>
+				<div className="column gap-2">
+					{application?.members?.map((member, index) => (
+						<ApplicationGrid key={index}>
+							<Input
+								label="Member Type"
+								value={member?.type || ""}
+								readOnly
+								disabled
+							/>
+							<Input
+								label="Name"
+								value={member?.name || ""}
+								readOnly
+								disabled
+							/>
+							{member?.type === "Dependent" && (
+								<Input
+									label="Date of Birth"
+									value={getTextDate(member?.dob) || ""}
+									readOnly
+									disabled
+								/>
+							)}
+							<Input
+								label="Relation to Applicant"
+								value={member?.relationship || ""}
+								readOnly
+								disabled
+							/>
+						</ApplicationGrid>
+					))}
+				</div>
+			</ApplicationSection>
+
+			<ApplicationSection>
+				<h4>Supporting Documents</h4>
+				<ApplicationGrid>
+					{application?.documents?.map((document, index) => (
+						<div key={index} className="img-container">
+							<img src={getImageUrl(document)} alt="Document" />
+							<p onClick={() => downloadFile(document)}>
+								{document}
+							</p>
+						</div>
+					))}
+				</ApplicationGrid>
+			</ApplicationSection>
+
+			<ApplicationSection>
+				<h4>Authorization & Consent</h4>
 				<ApplicationGrid>
 					<Input
-						label="Name"
-						value={application?.reference?.name || ""}
+						label="Consents to background check"
+						value={
+							application?.authorization?.backgroundCheck || ""
+						}
 						readOnly
 						disabled
 					/>
 					<Input
-						label="Phone Number"
-						value={application?.reference?.number || ""}
+						label="Consents to credit check"
+						value={application?.authorization?.creditCheck || ""}
 						readOnly
 						disabled
 					/>
 					<Input
-						label="Relationship"
-						value={application?.reference?.relationship || ""}
+						label="Consents to reference check"
+						value={application?.authorization?.referenceCheck || ""}
+						readOnly
+						disabled
+					/>
+					<Input
+						label="Consents to employer check"
+						value={application?.authorization?.employerCheck || ""}
 						readOnly
 						disabled
 					/>
 				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Name"
-						value={application?.otherReference?.name || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Phone Number"
-						value={application?.otherReference?.number || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="Relationship"
-						value={application?.otherReference?.relationship || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<h4>General Info</h4>
-				<ApplicationGrid>
-					<Input
-						label="Have you ever been late on rent?"
-						value={application?.lateOnRent?.response || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="If so, please explain why."
-						value={application?.lateOnRent?.reason || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Have you ever been party to a lawsuit?"
-						value={application?.partyToLawsuit?.response || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="If so, please explain why."
-						value={application?.partyToLawsuit?.reason || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Do you smoke?"
-						value={application?.doesSmoke || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Do you have any pets?"
-						value={application?.hasPets?.response || ""}
-						readOnly
-						disabled
-					/>
-					<Input
-						label="If yes, please list breed, weight, and age."
-						value={application?.hasPets?.info || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Why are you moving from your current address?"
-						value={application?.reasonForMoving || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Are there items on credit/background check you would like to comment on?"
-						value={application?.additionalComments || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column">
-				<ApplicationGrid>
-					<Input
-						label="Additional Questions"
-						value={application?.questions || ""}
-						readOnly
-						disabled
-					/>
-				</ApplicationGrid>
-			</div>
-
-			<div className="column gap-1">
-				{application?.incomeFiles?.map((file, index) => (
-					<Button onClick={() => downloadFile(file)} key={file}>
-						{`Download file #${index + 1}`}
-					</Button>
-				))}
-			</div>
+			</ApplicationSection>
 		</StyledApplicationForm>
 	);
 };

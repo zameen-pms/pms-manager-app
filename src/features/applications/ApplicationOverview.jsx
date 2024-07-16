@@ -1,7 +1,8 @@
+import Dropdown from "../ui/dropdown/Dropdown";
 import Input from "../ui/input/Input";
 import { getAddress } from "../utils/getAddress";
 
-const ApplicationOverview = ({ application }) => {
+const ApplicationOverview = ({ canEdit, application, setApplication }) => {
 	return (
 		<div className="column gap-1">
 			<Input
@@ -10,17 +11,30 @@ const ApplicationOverview = ({ application }) => {
 				readOnly
 				disabled
 			/>
-			<Input
+			<Dropdown
 				label="Application Status"
+				options={[
+					{ value: "In-Progress" },
+					{ value: "Approved" },
+					{ value: "Rejected" },
+				]}
 				value={application?.status || ""}
-				readOnly
-				disabled
+				onChange={(e) =>
+					setApplication({ ...application, status: e.value })
+				}
+				disabled={!canEdit}
 			/>
-			<Input
+			<Dropdown
 				label="Payment Status"
+				options={[
+					{ value: "Paid", val: true },
+					{ value: "Has Not Paid", val: false },
+				]}
 				value={application?.hasPaid ? "Paid" : "Has not paid"}
-				readOnly
-				disabled
+				onChange={(e) =>
+					setApplication({ ...application, hasPaid: e.val })
+				}
+				disabled={!canEdit}
 			/>
 			<div className="row gap-1">
 				<Input

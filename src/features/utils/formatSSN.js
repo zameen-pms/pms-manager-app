@@ -1,6 +1,6 @@
 export const formatSSN = (input) => {
 	let digits = input.replace(/\D/g, "");
-	if (digits.length < 9) {
+	if (digits.length !== 9) {
 		return "";
 	}
 	digits = digits.substring(0, 9);
