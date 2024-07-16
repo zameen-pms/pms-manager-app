@@ -1,17 +1,22 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StyledSideNav } from "./SideNav.styled";
 import {
 	MdAssignment,
+	MdClose,
 	MdFileCopy,
 	MdHome,
 	MdLogout,
 	MdPerson,
 } from "react-icons/md";
 import useLogout from "../../auth/useLogout";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsNavOpen, setIsNavOpen } from "../../app/globalSlice";
 
 const SideNav = () => {
 	const logout = useLogout();
 	const navigate = useNavigate();
+	const isNavOpen = useSelector(getIsNavOpen);
+	const dispatch = useDispatch();
 
 	const handleLogout = async () => {
 		try {
@@ -23,28 +28,42 @@ const SideNav = () => {
 		}
 	};
 
+	const navigateTo = (to) => {
+		navigate(to);
+		dispatch(setIsNavOpen(false));
+	};
+
 	return (
-		<StyledSideNav>
+		<StyledSideNav $navOpen={isNavOpen}>
 			<div className="side-nav-header">
-				<h2>Zameen Management</h2>
+				<MdClose onClick={() => dispatch(setIsNavOpen(false))} />
 			</div>
 			<div className="side-nav-body">
-				<NavLink className="nav-item" to="properties">
+				<p
+					className="nav-item"
+					onClick={() => navigateTo("properties")}
+				>
 					<MdHome />
 					Properties
-				</NavLink>
-				<NavLink className="nav-item" to="users">
+				</p>
+				<p className="nav-item" onClick={() => navigateTo("users")}>
 					<MdPerson />
 					Users
-				</NavLink>
-				<NavLink className="nav-item" to="maintenance">
+				</p>
+				<p
+					className="nav-item"
+					onClick={() => navigateTo("maintenance")}
+				>
 					<MdAssignment />
 					Work Orders
-				</NavLink>
-				<NavLink className="nav-item" to="applications">
+				</p>
+				<p
+					className="nav-item"
+					onClick={() => navigateTo("applications")}
+				>
 					<MdFileCopy />
 					Applications
-				</NavLink>
+				</p>
 			</div>
 			<div className="side-nav-footer">
 				<Link onClick={handleLogout} className="nav-item">

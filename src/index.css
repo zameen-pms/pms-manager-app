@@ -44,6 +44,21 @@ h4 {
 	font-size: 1.6rem;
 }
 
+@media (max-width: 1080px) {
+	h1 {
+		font-size: 2rem;
+	}
+	h2 {
+		font-size: 26px;
+	}
+	h3 {
+		font-size: 22px;
+	}
+	h4 {
+		font-size: 18px;
+	}
+}
+
 a {
 	color: #0984e3;
 	text-decoration: none;
@@ -58,6 +73,12 @@ a:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 1rem;
 }
 
 .row {

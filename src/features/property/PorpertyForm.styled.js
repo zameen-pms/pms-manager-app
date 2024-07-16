@@ -5,12 +5,6 @@ export const StyledPropertyForm = styled.form`
 	flex-direction: column;
 	gap: 2rem;
 
-	.grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-	}
-
 	.delete-icon {
 		background: #e74c3c;
 		width: 42px;

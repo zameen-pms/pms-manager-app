@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom";
-import { StyledBody, StyledContent, StyledLayout } from "./Layout.styled";
-import SideNav from "./sideNav/SideNav";
+import { StyledBody, StyledContent } from "./Layout.styled";
 import ControlBar from "./controlBar/ControlBar";
+import Header from "./Header";
+import SideNav from "./sideNav/SideNav";
 
 const Layout = () => {
 	return (
-		<StyledLayout>
+		<>
+			<Header />
 			<SideNav />
 			<StyledBody>
 				<ControlBar />
@@ -13,7 +15,7 @@ const Layout = () => {
 					<Outlet />
 				</StyledContent>
 			</StyledBody>
-		</StyledLayout>
+		</>
 	);
 };
 
