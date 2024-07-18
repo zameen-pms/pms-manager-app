@@ -8,6 +8,7 @@ import PropertiesHome from "./pages/properties";
 import UsersHome from "./pages/users";
 import WorkOrdersHome from "./pages/workOrders";
 import ApplicationsHome from "./pages/applications";
+import ContractsHome from "./pages/contracts/ContractsHome";
 
 const App = () => {
 	return (
@@ -25,6 +26,7 @@ const App = () => {
 							path="applications/*"
 							element={<ApplicationsHome />}
 						/>
+						<Route path="contracts/*" element={<ContractsHome />} />
 						<Route
 							path="maintenance/*"
 							element={<WorkOrdersHome />}

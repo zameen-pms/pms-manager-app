@@ -3,6 +3,7 @@ import { StyledSideNav } from "./SideNav.styled";
 import {
 	MdAssignment,
 	MdClose,
+	MdEditDocument,
 	MdFileCopy,
 	MdHome,
 	MdLogout,
@@ -46,6 +47,13 @@ const SideNav = () => {
 					<MdHome />
 					Properties
 				</p>
+				<p
+					className="nav-item"
+					onClick={() => navigateTo("applications")}
+				>
+					<MdFileCopy />
+					Applications
+				</p>
 				<p className="nav-item" onClick={() => navigateTo("users")}>
 					<MdPerson />
 					Users
@@ -57,12 +65,9 @@ const SideNav = () => {
 					<MdAssignment />
 					Work Orders
 				</p>
-				<p
-					className="nav-item"
-					onClick={() => navigateTo("applications")}
-				>
-					<MdFileCopy />
-					Applications
+				<p className="nav-item" onClick={() => navigateTo("contracts")}>
+					<MdEditDocument />
+					Contracts
 				</p>
 			</div>
 			<div className="side-nav-footer">
