@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Table from "../ui/table/Table";
 import { getTextDate } from "../utils/getTextDate";
 
@@ -21,12 +20,12 @@ const columns = [
 	},
 ];
 
-const ContractsTable = ({ loading, contracts }) => {
+const ContractsTable = ({ contracts, loading, onClick, search }) => {
 	const [data, setData] = useState([]);
-	const navigate = useNavigate();
+	const [parsedData, setParsedData] = useState([]);
 
 	useEffect(() => {
-		setData(
+		setParsedData(
 			contracts.map((contract) => ({
 				...contract,
 				id: contract._id,
@@ -41,9 +40,29 @@ const ContractsTable = ({ loading, contracts }) => {
 		);
 	}, [contracts]);
 
+	useEffect(() => {
+		if (!search || search === "") {
+			setData(parsedData);
+		} else {
+			setData(
+				parsedData.filter(
+					(row) =>
+						row?.title
+							?.toLowerCase()
+							?.includes(search.toLowerCase()) ||
+						row?.parties
+							?.toLowerCase()
+							.includes(search.toLowerCase()) ||
+						row?.createdAt
+							?.toLowerCase()
+							?.includes(search.toLowerCase())
+				)
+			);
+		}
+	}, [search, parsedData]);
+
 	const handleRowClick = (row) => {
-		const { id } = row;
-		navigate(`/contracts/${id}`);
+		onClick && onClick(row);
 	};
 
 	if (loading) return <p>Loading...</p>;

@@ -37,7 +37,7 @@ const UserSearchDropdown = ({ options, onChange, search }) => {
 				const isSelected = selected.includes(option._id);
 				return (
 					<li key={option._id}>
-						{`${option?.firstName} ${option?.lastName} (${option?.role})`}
+						{`${option?.firstName} ${option?.lastName} (${option?.role}) - ${option?.email}`}
 						<DropdownButton
 							$selected={isSelected}
 							type="button"

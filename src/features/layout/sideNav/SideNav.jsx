@@ -58,16 +58,20 @@ const SideNav = () => {
 					<MdPerson />
 					Users
 				</p>
-				<p
+				{/* <p
 					className="nav-item"
 					onClick={() => navigateTo("maintenance")}
 				>
 					<MdAssignment />
 					Work Orders
-				</p>
+				</p> */}
 				<p className="nav-item" onClick={() => navigateTo("contracts")}>
 					<MdEditDocument />
 					Contracts
+				</p>
+				<p className="nav-item" onClick={() => navigateTo("leases")}>
+					<MdEditDocument />
+					Leases
 				</p>
 			</div>
 			<div className="side-nav-footer">

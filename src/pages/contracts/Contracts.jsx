@@ -4,7 +4,6 @@ import { getUser } from "../../features/app/authSlice";
 import { useEffect, useState } from "react";
 import getContracts from "../../features/api/contracts/getContracts";
 import { setContent } from "../../features/app/globalSlice";
-import { MdArrowBack } from "react-icons/md";
 import Button from "../../features/ui/button/Button";
 import ContractsTable from "../../features/contracts/ContractsTable";
 
@@ -35,13 +34,7 @@ const Contracts = () => {
 		dispatch(
 			setContent(
 				<div className="row justify-sb align-center">
-					<div className="row align-center gap-05">
-						<MdArrowBack
-							className="back-arrow"
-							onClick={() => navigate(-1)}
-						/>
-						<h3>Contracts</h3>
-					</div>
+					<h3>Contracts</h3>
 					<Button onClick={() => navigate("add")}>
 						Add Contract
 					</Button>

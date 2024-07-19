@@ -24,7 +24,9 @@ const Dropdown = (props) => {
 
 	return (
 		<StyledDropdown style={props?.style} ref={inputRef}>
-			<label htmlFor={id}>{props?.label}</label>
+			<label htmlFor={id}>{`${props?.label}${
+				props?.required ? "*" : ""
+			}`}</label>
 			<input
 				id={id}
 				type={props?.type || "text"}
