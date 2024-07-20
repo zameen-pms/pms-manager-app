@@ -6,7 +6,6 @@ import RequireAuth from "./features/auth/RequireAuth";
 import Layout from "./features/layout/Layout";
 import PropertiesHome from "./pages/properties";
 import UsersHome from "./pages/users";
-import WorkOrdersHome from "./pages/workOrders";
 import ApplicationsHome from "./pages/applications";
 import ContractsHome from "./pages/contracts/ContractsHome";
 import LeaseHome from "./pages/leases";
@@ -29,10 +28,6 @@ const App = () => {
 						/>
 						<Route path="contracts/*" element={<ContractsHome />} />
 						<Route path="leases/*" element={<LeaseHome />} />
-						<Route
-							path="maintenance/*"
-							element={<WorkOrdersHome />}
-						/>
 						<Route
 							path="properties/*"
 							element={<PropertiesHome />}

@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { StyledSideNav } from "./SideNav.styled";
 import {
-	MdAssignment,
 	MdClose,
 	MdEditDocument,
 	MdFileCopy,
@@ -58,13 +57,6 @@ const SideNav = () => {
 					<MdPerson />
 					Users
 				</p>
-				{/* <p
-					className="nav-item"
-					onClick={() => navigateTo("maintenance")}
-				>
-					<MdAssignment />
-					Work Orders
-				</p> */}
 				<p className="nav-item" onClick={() => navigateTo("contracts")}>
 					<MdEditDocument />
 					Contracts
