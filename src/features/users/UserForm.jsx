@@ -3,14 +3,12 @@ import Button from "../ui/button/Button";
 import Dropdown from "../ui/dropdown/Dropdown";
 import Input from "../ui/input/Input";
 import { getUser } from "../app/authSlice";
-import sendResetPassword from "./sendResetPassword";
 
 const UserForm = ({ loading, canEdit, user, setUser }) => {
 	const { accessToken } = useSelector(getUser);
 
 	const handleSendReset = async (e) => {
 		e.preventDefault();
-		sendResetPassword(accessToken, user);
 	};
 
 	if (loading) return <p>Loading...</p>;
