@@ -1,21 +1,54 @@
 import { Outlet } from "react-router-dom";
-import { StyledBody, StyledContent } from "./Layout.styled";
-import ControlBar from "./controlBar/ControlBar";
-import Header from "./Header";
+import { StyledBody, StyledLayout, StyledOutlet } from "./Layout.styled";
 import SideNav from "./sideNav/SideNav";
+import ControlBar from "./controlBar/ControlBar";
+import {
+	MdContactPage,
+	MdEditDocument,
+	MdHomeWork,
+	MdPerson,
+	MdRequestPage,
+} from "react-icons/md";
+
+const navItems = [
+	{
+		name: "Properties",
+		url: "/properties",
+		icon: <MdHomeWork />,
+	},
+	{
+		name: "Users",
+		url: "/users",
+		icon: <MdPerson />,
+	},
+	{
+		name: "Applications",
+		url: "/applications",
+		icon: <MdContactPage />,
+	},
+	{
+		name: "Leases",
+		url: "/leases",
+		icon: <MdRequestPage />,
+	},
+	{
+		name: "Contracts",
+		url: "/contracts",
+		icon: <MdEditDocument />,
+	},
+];
 
 const Layout = () => {
 	return (
-		<>
-			<Header />
-			<SideNav />
+		<StyledLayout>
+			<SideNav navItems={navItems} />
 			<StyledBody>
 				<ControlBar />
-				<StyledContent>
+				<StyledOutlet>
 					<Outlet />
-				</StyledContent>
+				</StyledOutlet>
 			</StyledBody>
-		</>
+		</StyledLayout>
 	);
 };
 

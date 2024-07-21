@@ -1,80 +1,75 @@
 import styled from "styled-components";
 
-export const StyledSideNav = styled.nav`
-	position: fixed;
-	z-index: 10;
-	width: 300px;
-	height: 100vh;
-	right: ${(props) => (props.$navOpen ? "0" : "-300px")};
-	top: 0;
+export const StyledNav = styled.nav`
 	background: var(--dark-gray);
+	width: 250px;
+	height: 100%;
+	color: white;
 	display: flex;
 	flex-direction: column;
-	transition: all 0.25s ease-in-out;
+	gap: 2rem;
+	padding: 1rem;
 
-	.side-nav-header {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
-		padding: 0 2rem;
-		height: 75px;
+	header {
+		text-align: center;
+		font-size: 20px;
+		font-weight: 500;
 
-		svg {
+		a {
 			color: white;
-			width: 30px;
-			height: 30px;
-			cursor: pointer;
 		}
 	}
 
-	.side-nav-body {
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		gap: 24px;
-	}
-
-	.nav-item {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 10px;
-		width: 100%;
-		color: var(--light-gray);
-		cursor: pointer;
-		text-decoration: none;
-		transition: all 0.25s ease-in-out;
-
-		svg {
-			color: gray;
-			height: 22px;
-			width: auto;
-		}
-
-		&:hover {
+	ul {
+		a {
+			display: flex;
+			align-items: center;
+			border: 1px solid var(--dark-gray);
+			gap: 1rem;
+			font-size: 14px;
+			padding: 8px 12px;
 			color: white;
+			border-radius: 8px;
+			transition: all 0.25s ease-in-out;
+			text-decoration: none;
+
+			&:hover,
+			&.active {
+				cursor: pointer;
+				background: rgba(255, 255, 255, 0.05);
+				border-color: #999;
+			}
 
 			svg {
-				color: white;
+				width: 22px;
+				height: 22px;
 			}
 		}
 	}
 
-	.side-nav-footer {
-		padding: 20px;
+	.nav-signout {
 		margin-top: auto;
-		border-top: 0.5px solid rgba(255, 255, 255, 0.2);
-	}
+		display: flex;
+		align-items: center;
+		border: 1px solid var(--dark-gray);
+		gap: 1rem;
+		font-size: 14px;
+		padding: 8px 12px;
+		color: white;
+		border-radius: 8px;
+		transition: all 0.25s ease-in-out;
+		text-decoration: none;
 
-	@media (max-width: 760px) {
-		width: 100vw;
-		right: ${(props) => (props.$navOpen ? "0" : "-100vw")};
-		font-size: 22px;
+		&:hover,
+		&.active {
+			cursor: pointer;
+			background: rgba(255, 255, 255, 0.05);
+			border-color: #999;
+		}
 
-		.side-nav-body {
-			gap: 3rem;
-			text-align: center;
+		svg {
+			width: 22px;
+			height: 22px;
 		}
 	}
 `;
