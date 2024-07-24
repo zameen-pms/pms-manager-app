@@ -32,7 +32,11 @@ const ViewLease = ({ lease }) => {
 			<div className="grid">
 				<Input
 					label="Status"
-					value={lease?.status || ""}
+					value={
+						lease?.property?.currentLease === lease._id
+							? "Active"
+							: "Inactive"
+					}
 					readOnly
 					disabled
 				/>

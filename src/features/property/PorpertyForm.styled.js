@@ -5,6 +5,10 @@ export const StyledPropertyForm = styled.form`
 	flex-direction: column;
 	gap: 2rem;
 
+	h4 {
+		font-weight: 400;
+	}
+
 	.delete-icon {
 		background: #e74c3c;
 		width: 42px;

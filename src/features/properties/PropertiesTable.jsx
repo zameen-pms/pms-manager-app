@@ -9,13 +9,18 @@ const columns = [
 		width: 300,
 	},
 	{
-		field: "type",
-		headerName: "Type",
+		field: "availability",
+		headerName: "Availability",
 		width: 150,
 	},
 	{
-		field: "availability",
-		headerName: "Availability",
+		field: "leaseStatus",
+		headerName: "Lease Status",
+		width: 150,
+	},
+	{
+		field: "type",
+		headerName: "Type",
 		width: 150,
 	},
 ];
@@ -34,6 +39,9 @@ const PropertiesTable = ({ loading, properties }) => {
 				...property,
 				id: property._id,
 				address: getAddress(property.address),
+				leaseStatus: property?.currentLease?._id
+					? "Leased"
+					: "Not Leased",
 			}))
 		);
 	}, [properties]);

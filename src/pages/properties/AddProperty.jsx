@@ -25,6 +25,7 @@ const AddProperty = () => {
 			rent: 0,
 			description: "",
 		},
+		owners: [],
 	});
 
 	const handleSave = async (e) => {
