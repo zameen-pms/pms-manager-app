@@ -34,7 +34,7 @@ const Applications = () => {
 				params.property = selectedProperty.id;
 			}
 			const { data } = await getApplications(accessToken, params);
-			setApplications(data);
+			setApplications(data.reverse());
 		} catch (err) {
 			alert("Unable to fetch applications.");
 			console.log(err.message);
@@ -99,7 +99,7 @@ const Applications = () => {
 				onChange={(option) => setSelectedProperty(option)}
 			/>
 			<Tab
-				options={["All", "In-Review", "Approved", "Rejected"]}
+				options={["All", "In-Progress", "Approved", "Rejected"]}
 				tab={status}
 				setTab={setStatus}
 			/>
