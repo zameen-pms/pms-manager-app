@@ -41,31 +41,48 @@ const columns = [
 	},
 ];
 
-const PropertiesTable = ({ loading, properties }) => {
+const PropertiesTable = ({ loading, properties, search }) => {
 	const [data, setData] = useState([]);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		setData(
-			properties.map((property) => ({
-				...property,
-				id: property._id,
-				street: property.address.street,
-				city: property.address.city,
-				state: property.address.state,
-				leaseStatus: property?.currentLease?._id
-					? "Leased"
-					: "Not Leased",
-				owners:
-					property.owners
-						.map(
-							(owner) => `${owner?.firstName} ${owner?.lastName}`
-						)
-						.join(", ") || "Unassigned",
-				rent: getDollarAmount(property?.general?.rent || 0),
-			}))
+			properties
+				.map((property) => ({
+					...property,
+					id: property._id,
+					street: property.address.street,
+					city: property.address.city,
+					state: property.address.state,
+					leaseStatus: property?.currentLease?._id
+						? "Leased"
+						: "Not Leased",
+					owners:
+						property.owners
+							.map(
+								(owner) =>
+									`${owner?.firstName} ${owner?.lastName}`
+							)
+							.join(", ") || "Unassigned",
+					rent: getDollarAmount(property?.general?.rent || 0),
+				}))
+				.filter((property) => {
+					if (!search) return true;
+					const lowerCaseSearch = search.toLowerCase();
+					return (
+						property.address.street
+							.toLowerCase()
+							.includes(lowerCaseSearch) ||
+						property.address.city
+							.toLowerCase()
+							.includes(lowerCaseSearch) ||
+						property.address.state
+							.toLowerCase()
+							.includes(lowerCaseSearch)
+					);
+				})
 		);
-	}, [properties]);
+	}, [properties, search]);
 
 	const handleRowClick = (row) => {
 		const { id } = row;
