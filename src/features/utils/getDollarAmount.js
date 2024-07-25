@@ -3,7 +3,7 @@ export const getDollarAmount = (amount) => {
 		throw new Error("Input is not a number");
 	}
 	return `$${parseFloat(amount).toLocaleString("en-US", {
-		minimumFractionDigits: 2,
+		minimumFractionDigits: 0,
 		maximumFractionDigits: 2,
 	})}`;
 };

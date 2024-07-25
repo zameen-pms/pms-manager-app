@@ -19,7 +19,7 @@ const Properties = () => {
 		try {
 			setLoading(true);
 			const { data } = await getProperties(accessToken, {});
-			setProperties(data);
+			setProperties(data.reverse());
 		} catch (err) {
 			alert("Unable to fetch properties.");
 			console.log(err.message);
