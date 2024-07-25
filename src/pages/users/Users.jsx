@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setContent } from "../../features/app/globalSlice";
 import { MdArrowBack } from "react-icons/md";
-import Button from "../../features/ui/button/Button";
 import UsersTable from "../../features/users/UsersTable";
 import Tab from "../../features/ui/tab/Tab";
 import { getUser } from "../../features/app/authSlice";
