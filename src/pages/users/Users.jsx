@@ -20,15 +20,12 @@ const Users = () => {
 	useEffect(() => {
 		dispatch(
 			setContent(
-				<div className="row justify-sb">
-					<div className="row align-center gap-05">
-						<MdArrowBack
-							className="back-arrow"
-							onClick={() => navigate(-1)}
-						/>
-						<h3>Users</h3>
-					</div>
-					<Button onClick={() => navigate("add")}>Add User</Button>
+				<div className="row align-center gap-05">
+					<MdArrowBack
+						className="back-arrow"
+						onClick={() => navigate(-1)}
+					/>
+					<h3>Users</h3>
 				</div>
 			)
 		);
