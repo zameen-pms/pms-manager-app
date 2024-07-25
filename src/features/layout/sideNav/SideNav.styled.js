@@ -16,7 +16,10 @@ export const StyledNav = styled.nav`
 		font-weight: 500;
 
 		a {
-			color: white;
+			img {
+				width: 100%;
+				height: auto;
+			}
 		}
 	}
 

@@ -19,7 +19,12 @@ const SideNav = ({ navItems = [] }) => {
 	return (
 		<StyledNav>
 			<header>
-				<Link to="/">Zameen Management LLC</Link>
+				<Link to="/">
+					<img
+						src="/images/light-logo.svg"
+						alt="Zameen Management LLC"
+					/>
+				</Link>
 			</header>
 			<ul className="column gap-05">
 				{navItems.map((item, index) => (
